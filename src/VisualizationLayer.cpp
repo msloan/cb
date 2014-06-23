@@ -27,7 +27,7 @@ void VisualizationLayer::OnEvent(const Event& event)
 
 		Circles.push_back(newCircle);
 	}
-	else if (event.Type == Event::Type::TimePassed)
+	else if (event.Type == Event::TimePassed)
 	{
 		Update(event.Value.TimePassed.DeltaTime);
 	}

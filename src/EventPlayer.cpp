@@ -3,19 +3,19 @@
 
 EventPlayer::EventPlayer()
 {
-	CurrentState = State::Recording;
+	CurrentState = Recording;
 }
 
 void EventPlayer::Record(const Event& newEvent)
 {
-	assert(CurrentState == State::Recording);
+	assert(CurrentState == Recording);
 
 	Events.push_back(newEvent);
 }
 
 void EventPlayer::Clear()
 {
-	assert(CurrentState == State::Recording);
+	assert(CurrentState == Recording);
 
 	Events.clear();
 }
@@ -24,7 +24,7 @@ void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
 {
 	assert(receiver != NULL);
 	assert(startTime >= 0.f);
-	assert(CurrentState == State::Recording);
+	assert(CurrentState == Recording);
 
 	PlaybackReceiver = receiver;
 
@@ -33,14 +33,14 @@ void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
 
-	SetState(State::Playing);
+	SetState(Playing);
 }
 
 void EventPlayer::Update(float dt)
 {
 	switch (CurrentState)
 	{
-	case State::Playing:
+	case Playing:
 		UnconsumedTime += dt;
 		while (!CaughtUp())
 		{
@@ -52,14 +52,14 @@ void EventPlayer::Update(float dt)
 			PlayNextEvent();
 			if (PlaybackFinished())
 			{
-				SetState(State::Recording);
+				SetState(Recording);
 				Clear();
 				return;
 			}
 		}
 		break;
 
-	case State::Recording:
+	case Recording:
 		break;
 	}
 }
@@ -77,7 +77,7 @@ Event* EventPlayer::NextEvent()
 
 bool EventPlayer::CaughtUp()
 {
-	return NextEvent()->Type == Event::Type::TimePassed
+	return NextEvent()->Type == Event::TimePassed
 		&& NextEvent()->Value.TimePassed.DeltaTime > UnconsumedTime;
 }
 

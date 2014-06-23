@@ -5,7 +5,7 @@
 CBApp::CBApp()
 	: CircleFactory(MAX_CIRCLE_VISUALIZATIONS), CurrentLayer(CircleFactory)
 {
-	CurrentState = State::Recording;
+	CurrentState = Recording;
 }
 
 CBApp::~CBApp()
@@ -20,9 +20,9 @@ void CBApp::PostEvent(const Event& Event)
 {
 	switch (CurrentState)
 	{
-	case State::Playing: return;
+	case Playing: return;
 
-	case State::Recording: 
+	case Recording: 
 		Player.Record(Event);
 		CurrentLayer.OnEvent(Event);
 		break;
@@ -35,14 +35,14 @@ void CBApp::Update(float dt)
 
 	switch (CurrentState)
 	{
-	case State::Playing: 
+	case Playing: 
 		if (Player.GetState() == EventPlayer::Recording)
 		{
-			SetState(State::Recording);
+			SetState(Recording);
 		}
 		return;
 
-	case State::Recording: 
+	case Recording: 
 		Event timePassed;
 		timePassed.Type = Event::TimePassed;
 		timePassed.Value.TimePassed.DeltaTime = dt;
@@ -60,19 +60,19 @@ void CBApp::Draw()
 
 void CBApp::StartRecording()
 {
-	assert(CurrentState == State::Recording);
+	assert(CurrentState == Recording);
 
 	CurrentLayer.Clear();
 	Player.Clear();
-	SetState(State::Recording);
+	SetState(Recording);
 }
 
 void CBApp::PlayRecording()
 {
-	assert(CurrentState == State::Recording);
+	assert(CurrentState == Recording);
 
 	CurrentLayer.Clear();
 	Player.StartPlayback(0.0f, &CurrentLayer);
-	SetState(State::Playing);
+	SetState(Playing);
 }
 
