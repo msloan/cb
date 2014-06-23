@@ -19,3 +19,21 @@
 *.exe
 *.out
 *.app
+
+# Visual studio
+*.opensdf
+*.sdf
+*.suo
+*.filters
+*.bsc
+*.pdb
+*.ilk
+*.exp
+*.tlog
+*.sbr
+*.lastbuildstate
+*.log
+*.idb
+
+# Vim
+*.swp
