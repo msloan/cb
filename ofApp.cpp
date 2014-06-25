@@ -37,23 +37,13 @@ void ofApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	if (button == 2)
-	{ 
-		if (App->GetState() == CBApp::State::Recording)
-		{
-			App->PlayRecording();
-		}
-	}
-	else
-	{
-		Event touchEvent;
-		touchEvent.Type = Event::Type::TouchDown;
-		touchEvent.Value.Touch.Id = button;
-		touchEvent.Value.Touch.x = (float)x;
-		touchEvent.Value.Touch.y = (float)y;
+	Event touchEvent;
+	touchEvent.Type = Event::Type::TouchDown;
+	touchEvent.Value.Touch.Id = button;
+	touchEvent.Value.Touch.x = (float)x;
+	touchEvent.Value.Touch.y = (float)y;
 
-		App->PostEvent(touchEvent);
-	}
+	App->PostEvent(touchEvent);
 }
 
 //--------------------------------------------------------------

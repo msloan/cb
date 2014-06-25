@@ -13,6 +13,7 @@ class EventPlayer
 public:
 	enum State
 	{
+		Idle,
 		Recording,
 		Playing
 	};
@@ -35,13 +36,19 @@ private:
 	bool	PlaybackFinished();
 
 public:
-
 	EventPlayer();
 
-	void Record(const Event& newEvent);
 	void Clear();
+
+	void Record(const Event& newEvent);
+	void Reset();
+	void Stop();
+
+	const std::vector<Event>& GetRecordedEvents();
+
 	void StartPlayback(float startTime, IEventReceiver* receiver);
 	void Update(float dt);
+
 	State GetState() { return CurrentState; }
 };
 

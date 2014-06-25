@@ -1,12 +1,14 @@
 #pragma once
 #include "PooledFactory.h"
 #include "VisualizationLayer.h"
+#include <vector>
 
 class CBApp
 {
 public:
 	enum State
 	{
+		Idle,
 		Recording,
 		Playing
 	};
@@ -14,6 +16,7 @@ public:
 private:
 
 	PooledFactory<CircleVisualization> CircleFactory;
+
 	VisualizationLayer CurrentLayer;
 
 	EventPlayer Player;
@@ -22,6 +25,7 @@ private:
 	State CurrentState;
 
 	void SetState(State nextState)	{ CurrentState = nextState; }
+	bool DebugButtonPressed(const Event& event);
 
 public:
 	CBApp::State GetState()			{ return CurrentState; }
@@ -37,6 +41,7 @@ public:
 
 	void StartRecording();
 	void PlayRecording();
-
+	void Reset();
+	void Stop();
 };
 
