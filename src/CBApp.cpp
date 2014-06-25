@@ -103,7 +103,7 @@ void CBApp::StartRecording()
 
 	CurrentLayer.Clear();
 	Player.Clear();
-	SetState(State::Recording);
+	SetState(Recording);
 }
 
 void CBApp::PlayRecording()
@@ -112,7 +112,7 @@ void CBApp::PlayRecording()
 
 	CurrentLayer.Clear();
 	Player.StartPlayback(0.0f, &CurrentLayer);
-	SetState(State::Playing);
+	SetState(Playing);
 }
 
 void CBApp::Reset()

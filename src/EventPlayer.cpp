@@ -44,14 +44,14 @@ void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
 
-	SetState(State::Playing);
+	SetState(Playing);
 }
 
 void EventPlayer::Update(float dt)
 {
 	switch (CurrentState)
 	{
-	case State::Playing:
+	case Playing:
 		UnconsumedTime += dt;
 		while (!CaughtUp())
 		{
@@ -88,7 +88,7 @@ Event* EventPlayer::NextEvent()
 
 bool EventPlayer::CaughtUp()
 {
-	return NextEvent()->Type == Event::Type::TimePassed
+	return NextEvent()->Type == Event::TimePassed
 		&& NextEvent()->Value.TimePassed.DeltaTime > UnconsumedTime;
 }
 
