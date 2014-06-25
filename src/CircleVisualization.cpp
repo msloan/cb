@@ -1,7 +1,8 @@
 #include "CircleVisualization.h"
 #include "of3dPrimitives.h"
 
-#define StartingAlpha (255.f)
+#define STARTING_ALPHA (255.f)
+#define CIRCLE_RESOLUTION 100
 
 
 CircleVisualization::CircleVisualization()
@@ -28,7 +29,7 @@ void CircleVisualization::Initialize(
 
 void CircleVisualization::TweenAlpha(float time)
 {
-	CurrentAlpha = StartingAlpha * (1 - (CurrentTime / VisibleDuration));
+	CurrentAlpha = STARTING_ALPHA * (1 - (CurrentTime / VisibleDuration));
 }
 
 void CircleVisualization::Update(float dt)
@@ -45,5 +46,6 @@ void CircleVisualization::Update(float dt)
 void CircleVisualization::Draw()
 {
 	ofSetColor(InitialColor, CurrentAlpha);
+	ofSetCircleResolution(CIRCLE_RESOLUTION);
 	ofCircle(Position.x, Position.y, InitialRadius);
 }

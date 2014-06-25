@@ -1,6 +1,7 @@
 #include "CBApp.h"
 #include "PCH.h"
 
+#define MAX_CIRCLE_VISUALIZATIONS 1000
 
 CBApp::CBApp()
 	: CircleFactory(MAX_CIRCLE_VISUALIZATIONS), CurrentLayer(CircleFactory)
