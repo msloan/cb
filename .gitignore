@@ -40,3 +40,6 @@
 
 # Vim
 *.swp
+
+# Beyond Compare
+*.orig
