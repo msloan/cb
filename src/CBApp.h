@@ -10,22 +10,31 @@ public:
 	{
 		Idle,
 		Recording,
-		Playing
+		Playing,
 	};
 	
 private:
 
 	PooledFactory<CircleVisualization> CircleFactory;
 
-	VisualizationLayer CurrentLayer;
+	std::vector<VisualizationLayer> VisualizationLayers;
+	std::vector<EventPlayer>		EventPlayers;
 
-	EventPlayer Player;
+	VisualizationLayer& CurrentLayer() 	{ return VisualizationLayers.back(); }
+	EventPlayer& CurrentPlayer() 		{ return EventPlayers.back(); }
 
 	
 	State CurrentState;
 
 	void SetState(State nextState)	{ CurrentState = nextState; }
 	bool DebugButtonPressed(const Event& event);
+
+	void ClearAllLayers();
+	void StopAllPlayers();
+	void UpdatePlayers(float dt);
+	void PlayAllPlayers();
+
+	void CreateNewLayer();
 
 public:
 	CBApp::State GetState()			{ return CurrentState; }
@@ -39,8 +48,8 @@ public:
 
 	void PostEvent(const Event& Event);
 
-	void StartRecording();
-	void PlayRecording();
+	void RecordNewLayer();
+	void Play();
 	void Reset();
 	void Stop();
 };

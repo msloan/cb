@@ -4,6 +4,9 @@
 EventPlayer::EventPlayer()
 {
 	CurrentState = State::Idle;
+	_PlaybackFinished = false;
+	NextEventIndex = 0;
+	UnconsumedTime = 0.f;
 }
 
 void EventPlayer::Record(const Event& newEvent)
@@ -43,6 +46,7 @@ void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
 	StartTime = startTime;
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
+	_PlaybackFinished = false;
 
 	SetState(Playing);
 }
@@ -52,6 +56,15 @@ void EventPlayer::Update(float dt)
 	switch (CurrentState)
 	{
 	case Playing:
+		if (_PlaybackFinished)
+		{
+			// Continue notifying event receiver that time is passing until EventPlayer is
+			// explicitly told to stop. This lets the visualizations at the end of a layer 
+			// continue to animate/fade away even if the playback was cut short.
+			SendTimePassedEvent(dt);
+			return;
+		}
+
 		UnconsumedTime += dt;
 		while (!CaughtUp())
 		{
@@ -63,16 +76,23 @@ void EventPlayer::Update(float dt)
 			PlayNextEvent();
 			if (PlaybackFinished())
 			{
-				SetState(State::Idle);
+				_PlaybackFinished = true;
 				return;
 			}
 		}
 		break;
 
-	case State::Recording:
 	case State::Idle:
 		break;
 	}
+}
+
+void EventPlayer::SendTimePassedEvent(float dt)
+{
+	Event timePassed;
+	timePassed.Type = Event::TimePassed;
+	timePassed.Value.TimePassed.DeltaTime = dt;
+	PlaybackReceiver->OnEvent(timePassed);
 }
 
 void EventPlayer::PlayNextEvent()

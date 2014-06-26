@@ -14,7 +14,6 @@ public:
 	enum State
 	{
 		Idle,
-		Recording,
 		Playing
 	};
 
@@ -24,6 +23,7 @@ private:
 	float	StartTime;
 	float	UnconsumedTime;
 	int		NextEventIndex;
+	bool	_PlaybackFinished;
 
 	IEventReceiver* PlaybackReceiver;
 
@@ -34,6 +34,7 @@ private:
 	Event*	NextEvent();
 	bool	CaughtUp();
 	bool	PlaybackFinished();
+	void 	SendTimePassedEvent(float dt);
 
 public:
 	EventPlayer();
