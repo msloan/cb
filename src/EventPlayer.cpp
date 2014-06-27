@@ -68,9 +68,9 @@ void EventPlayer::Update(float dt)
 		UnconsumedTime += dt;
 		while (!CaughtUp())
 		{
-			if (NextEvent()->Type == Event::TimePassed)
+			if (NextEvent().Type == Event::TimePassed)
 			{
-				UnconsumedTime -= NextEvent()->Value.TimePassed.DeltaTime;
+				UnconsumedTime -= NextEvent().Value.TimePassed.DeltaTime;
 			}
 
 			PlayNextEvent();
@@ -101,15 +101,15 @@ void EventPlayer::PlayNextEvent()
 	NextEventIndex++;
 }
 
-Event* EventPlayer::NextEvent()
+Event& EventPlayer::NextEvent()
 {
-	return &Events[NextEventIndex];
+	return Events[NextEventIndex];
 }
 
 bool EventPlayer::CaughtUp()
 {
-	return NextEvent()->Type == Event::TimePassed
-		&& NextEvent()->Value.TimePassed.DeltaTime > UnconsumedTime;
+	return NextEvent().Type == Event::TimePassed
+		&& NextEvent().Value.TimePassed.DeltaTime > UnconsumedTime;
 }
 
 bool EventPlayer::PlaybackFinished()

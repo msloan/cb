@@ -1,7 +1,7 @@
 #pragma once
 #include "PooledFactory.h"
-#include "VisualizationLayer.h"
 #include <vector>
+#include "CompositionLayer.h"
 
 class CBApp
 {
@@ -17,12 +17,9 @@ private:
 
 	PooledFactory<CircleVisualization> CircleFactory;
 
-	std::vector<VisualizationLayer> VisualizationLayers;
-	std::vector<EventPlayer>		EventPlayers;
+	std::vector<CompositionLayer> Layers;
 
-	VisualizationLayer& CurrentLayer() 	{ return VisualizationLayers.back(); }
-	EventPlayer& CurrentPlayer() 		{ return EventPlayers.back(); }
-
+	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
 	
 	State CurrentState;
 
@@ -30,9 +27,9 @@ private:
 	bool DebugButtonPressed(const Event& event);
 
 	void ClearAllLayers();
-	void StopAllPlayers();
-	void UpdatePlayers(float dt);
-	void PlayAllPlayers();
+	void StopAllLayers();
+	void UpdateLayers(float dt);
+	void PlayAllLayers();
 
 	void CreateNewLayer();
 

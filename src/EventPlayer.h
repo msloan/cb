@@ -31,7 +31,7 @@ private:
 	void SetState(State state) { CurrentState = state; }
 
 	void	PlayNextEvent();
-	Event*	NextEvent();
+	Event&	NextEvent();
 	bool	CaughtUp();
 	bool	PlaybackFinished();
 	void 	SendTimePassedEvent(float dt);

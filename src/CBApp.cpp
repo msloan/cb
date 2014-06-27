@@ -10,8 +10,7 @@
 CBApp::CBApp()
 	: CircleFactory(MAX_CIRCLE_VISUALIZATIONS)
 {
-	VisualizationLayers.reserve(MAX_LAYERS);
-	EventPlayers.reserve(MAX_LAYERS);
+	Layers.reserve(MAX_LAYERS);
 	CurrentState = State::Idle;
 }
 
@@ -62,24 +61,22 @@ void CBApp::PostEvent(const Event& event)
 	case State::Playing: return;
 
 	case State::Recording: 
-		CurrentPlayer().Record(event);
-		CurrentLayer().OnEvent(event);
-		
+		CurrentLayer().Record(event);
 		break;
 	}
 }
 
-void CBApp::UpdatePlayers(float dt)
+void CBApp::UpdateLayers(float dt)
 {
-	for (int i = 0; i < EventPlayers.size(); ++i)
+	for (int i = 0; i < Layers.size(); ++i)
 	{
-		EventPlayers[i].Update(dt);
+		Layers[i].Update(dt);
 	}
 }
 
 void CBApp::Update(float dt)
 {
-	UpdatePlayers(dt);
+	UpdateLayers(dt);
 
 	switch (CurrentState)
 	{
@@ -87,7 +84,7 @@ void CBApp::Update(float dt)
 		break;
 
 	case State::Playing: 
-		if (CurrentPlayer().GetState() == EventPlayer::Idle)
+		if (CurrentLayer().GetState() == EventPlayer::Idle)
 		{
 			SetState(State::Idle);
 		}
@@ -105,18 +102,17 @@ void CBApp::Update(float dt)
 
 void CBApp::Draw()
 {
-	for (int i = 0; i < VisualizationLayers.size(); ++i)
+	for (int i = 0; i < Layers.size(); ++i)
 	{
-		VisualizationLayers[i].Draw();
+		Layers[i].Draw();
 	}
 }
 
 void CBApp::CreateNewLayer()
 {
-	assert(VisualizationLayers.size() < MAX_LAYERS);
+	assert(Layers.size() < MAX_LAYERS);
 
-	VisualizationLayers.push_back(VisualizationLayer(CircleFactory));
-	EventPlayers.push_back(EventPlayer());
+	Layers.push_back(CompositionLayer(CircleFactory));
 }
 
 void CBApp::RecordNewLayer()
@@ -126,17 +122,17 @@ void CBApp::RecordNewLayer()
 		Stop();
 	}
 
-	PlayAllPlayers();
+	PlayAllLayers();
 	CreateNewLayer();
 
 	SetState(Recording);
 }
 
-void CBApp::PlayAllPlayers()
+void CBApp::PlayAllLayers()
 {
-	for (int i = 0; i < EventPlayers.size(); ++i)
+	for (int i = 0; i < Layers.size(); ++i)
 	{
-		EventPlayers[i].StartPlayback(0.0f, &(VisualizationLayers[i]));
+		Layers[i].Play(0.0f);
 	}
 }
 
@@ -147,37 +143,25 @@ void CBApp::Play()
 		Stop();
 	}
 
-	PlayAllPlayers();
+	PlayAllLayers();
 	SetState(Playing);
 }
 
 void CBApp::Reset()
 {
-	ClearAllLayers();
-	EventPlayers.clear();
-
+	Layers.clear();
 	SetState(Idle);
 }
 
-void CBApp::ClearAllLayers()
+void CBApp::StopAllLayers()
 {
-	for (int i = 0; i < VisualizationLayers.size(); ++i)
+	for (int i = 0; i < Layers.size(); ++i)
 	{
-		VisualizationLayers[i].Clear();
-	}
-}
-
-void CBApp::StopAllPlayers()
-{
-	for (int i = 0; i < EventPlayers.size(); ++i)
-	{
-		EventPlayers[i].Stop();
+		Layers[i].Stop();
 	}
 }
 
 void CBApp::Stop()
 {
-	ClearAllLayers();
-	StopAllPlayers();
 	SetState(State::Idle);
 }
