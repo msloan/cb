@@ -22,19 +22,12 @@ void ofiOSApp::exit(){
 
 //--------------------------------------------------------------
 void ofiOSApp::touchDown(ofTouchEventArgs & touch){
-    if (touch.x < 20.f && touch.y < 20.f)
-    {
-        if (App->GetState() == CBApp::Recording)
-        {
-            App->PlayRecording();
-        }
-    }
-    
+
     Event touchEvent;
     touchEvent.Type = Event::TouchDown;
     touchEvent.Value.Touch.Id = touch.id;
-    touchEvent.Value.Touch.x = (float)touch.x;
-    touchEvent.Value.Touch.y = (float)touch.y;
+    touchEvent.Value.Touch.x = (float)touch.x / ofGetWidth();
+    touchEvent.Value.Touch.y = (float)touch.y / ofGetHeight();
     
 
     App->PostEvent(touchEvent);

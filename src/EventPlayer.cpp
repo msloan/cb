@@ -3,7 +3,7 @@
 
 EventPlayer::EventPlayer()
 {
-	CurrentState = State::Idle;
+	CurrentState = Idle;
 	_PlaybackFinished = false;
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
@@ -11,7 +11,7 @@ EventPlayer::EventPlayer()
 
 void EventPlayer::Record(const Event& newEvent)
 {
-	assert(CurrentState == State::Idle);
+	assert(CurrentState == Idle);
 
 	Events.push_back(newEvent);
 }
@@ -24,12 +24,12 @@ void EventPlayer::Reset()
 
 void EventPlayer::Stop()
 {
-	SetState(State::Idle);
+	SetState(Idle);
 }
 
 void EventPlayer::Clear()
 {
-	assert(CurrentState == State::Idle);
+	assert(CurrentState == Idle);
 
 	Events.clear();
 }
@@ -38,7 +38,7 @@ void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
 {
 	assert(receiver != NULL);
 	assert(startTime >= 0.f);
-	assert(CurrentState == State::Idle);
+	assert(CurrentState == Idle);
 
 	PlaybackReceiver = receiver;
 
@@ -82,7 +82,7 @@ void EventPlayer::Update(float dt)
 		}
 		break;
 
-	case State::Idle:
+	case Idle:
 		break;
 	}
 }

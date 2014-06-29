@@ -11,7 +11,7 @@ CBApp::CBApp()
 	: CircleFactory(MAX_CIRCLE_VISUALIZATIONS)
 {
 	Layers.reserve(MAX_LAYERS);
-	CurrentState = State::Idle;
+	CurrentState = Idle;
 }
 
 
@@ -59,9 +59,11 @@ void CBApp::PostEvent(const Event& event)
 
 	switch (CurrentState)
 	{
-	case State::Playing: return;
+	case Playing:
+    case Idle:
+            return;
 
-	case State::Recording: 
+	case Recording: 
 		CurrentLayer().Record(event);
 		break;
 	}
@@ -81,17 +83,17 @@ void CBApp::Update(float dt)
 
 	switch (CurrentState)
 	{
-	case State::Idle:
+	case Idle:
 		break;
 
-	case State::Playing: 
+	case Playing: 
 		if (CurrentLayer().GetState() == EventPlayer::Idle)
 		{
-			SetState(State::Idle);
+			SetState(Idle);
 		}
 		break;
 
-	case State::Recording: 
+	case Recording: 
 		Event timePassed;
 		timePassed.Type = Event::TimePassed;
 		timePassed.Value.TimePassed.DeltaTime = dt;
@@ -122,7 +124,7 @@ void CBApp::CreateNewLayer()
 
 void CBApp::RecordNewLayer()
 {
-	if (CurrentState != State::Idle)
+	if (CurrentState != Idle)
 	{
 		Stop();
 	}
@@ -143,7 +145,7 @@ void CBApp::PlayAllLayers()
 
 void CBApp::Play()
 {
-	if (CurrentState != State::Idle)
+	if (CurrentState != Idle)
 	{
 		Stop();
 	}
@@ -168,5 +170,6 @@ void CBApp::StopAllLayers()
 
 void CBApp::Stop()
 {
-	SetState(State::Idle);
+	SetState(Idle);
+    StopAllLayers();
 }

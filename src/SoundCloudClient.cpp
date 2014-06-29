@@ -2,6 +2,7 @@
 #include "Poco/Net/HTTPResponse.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace Poco::Net;
 #define CLIENT_ID "521372fec198e4af7c4df3101b1d3e87"
@@ -17,7 +18,9 @@ SoundCloudClient::SoundCloudClient()
 string GetStreamUriByTrackId(int id)
 {
 	string uri("/tracks/");
-	uri.append(to_string(id));
+    stringstream ss;
+    ss << id;
+	uri.append(ss.str());
 	uri.append("/stream?client_id=");
 	uri.append(CLIENT_ID);
 	return uri;
