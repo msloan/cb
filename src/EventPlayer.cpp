@@ -114,5 +114,5 @@ bool EventPlayer::CaughtUp()
 
 bool EventPlayer::PlaybackFinished()
 {
-	return NextEventIndex == (Events.size() - 1);
+	return NextEventIndex == Events.size();
 }
