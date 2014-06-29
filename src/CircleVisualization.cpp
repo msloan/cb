@@ -3,7 +3,7 @@
 
 #define STARTING_ALPHA (255.f)
 #define CIRCLE_RESOLUTION 100
-#define CIRCLE_RADIUS 50.f
+#define CIRCLE_RADIUS 40.f
 
 
 CircleVisualization::CircleVisualization()
@@ -28,25 +28,33 @@ void CircleVisualization::Initialize(
 	TweenAlpha(startTime);
 }
 
-float tween(float time, float startTime, float endTime, float startValue, float endValue, float value)
+//Returns a value between startScale and endScale scaling linearly with time.
+float tween(float time, float endTime, float startScale, float endScale)
 {
-	return (endValue - startValue)/(endTime - startTime) * (time - startTime) * value;
+	return startScale + time / endTime * (endScale - startScale);
 }
 
 void CircleVisualization::TweenAlpha(float time)
 {
-	CurrentAlpha = STARTING_ALPHA * (1 - (CurrentTime / VisibleDuration));
+	CurrentAlpha = STARTING_ALPHA * (1 - (time / (VisibleDuration - VisibleDuration/2.f)));
 }
 
-void CircleVisualization::TweenRadius(float time)
+void CircleVisualization::ExpandContractToFixed(float time)
 {
-	CurrentRadius = tween(time,CurrentTime,CurrentTime + VisibleDuration, 1,0, CIRCLE_RADIUS);
-}
-
-void CircleVisualization::ExpandContractToZero(float time)
-{
-	CurrentRadius = CIRCLE_RADIUS * (1 - (CurrentTime / VisibleDuration));
-	CurrentAlpha = STARTING_ALPHA * (1 - (CurrentTime / VisibleDuration));
+	float contractTime;
+	float fixedTime;
+	if(time < (contractTime = VisibleDuration / 17.f))
+	{
+		CurrentRadius = tween(time, contractTime, 1, 1.10) * CIRCLE_RADIUS;
+	}
+	else if(time < (fixedTime = VisibleDuration / 3.0f))
+	{
+		CurrentRadius = tween(time, fixedTime, 1.10, 0.4) * CIRCLE_RADIUS;
+	}
+	else
+	{
+		CurrentRadius = 0.4 * CIRCLE_RADIUS;
+	}
 }
 
 void CircleVisualization::Update(float dt)
@@ -58,7 +66,7 @@ void CircleVisualization::Update(float dt)
 	if (CurrentTime >= VisibleDuration) _Done = true;
 
 	TweenAlpha(CurrentTime);
-	TweenRadius(CurrentTime);
+	ExpandContractToFixed(CurrentTime);
 }
 
 void CircleVisualization::Draw()

@@ -18,7 +18,7 @@ class CircleVisualization : public Poolable
 
 	void TweenAlpha(float time);
 	void TweenRadius(float time);
-	void ExpandContractToZero(float time);
+	void ExpandContractToFixed(float time);
 public:
 
 	CircleVisualization();
