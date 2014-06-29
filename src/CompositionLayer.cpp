@@ -1,7 +1,9 @@
 #include "CompositionLayer.h"
 
-CompositionLayer::CompositionLayer(PooledFactory<CircleVisualization>& CircleFactory)
-: Visuals(CircleFactory)
+CompositionLayer::CompositionLayer(
+		PooledFactory<CircleVisualization>& CircleFactory,
+		ofVec2f screenDimensions)
+: Visuals(CircleFactory, screenDimensions)
 {
 }
 

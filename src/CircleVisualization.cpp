@@ -16,7 +16,6 @@ CircleVisualization::CircleVisualization()
 void CircleVisualization::Initialize(
 	ofVec2f position, 
 	float radius, 
-	float visibleDuration,
 	ofColor color,
 	float startTime)
 {
@@ -24,7 +23,6 @@ void CircleVisualization::Initialize(
 	InitialRadius = radius;
 	CurrentRadius = InitialRadius;
 	InitialColor = color;
-	VisibleDuration = visibleDuration;
 	CurrentTime = 0.0f;
 	_Done = false;
 
@@ -63,7 +61,7 @@ void CircleVisualization::Update(float dt)
 
 	CurrentTime += dt;
 
-	if (CurrentTime >= VisibleDuration) _Done = true;
+	if (CurrentTime >= DURATION) _Done = true;
 
 	TweenAlpha(CurrentTime);
 	ExpandContractToFixed(CurrentTime);

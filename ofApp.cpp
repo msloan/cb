@@ -40,8 +40,8 @@ void ofApp::mousePressed(int x, int y, int button)
 	Event touchEvent;
 	touchEvent.Type = Event::Type::TouchDown;
 	touchEvent.Value.Touch.Id = button;
-	touchEvent.Value.Touch.x = (float)x;
-	touchEvent.Value.Touch.y = (float)y;
+	touchEvent.Value.Touch.x = (float)x / ofGetWidth(),
+	touchEvent.Value.Touch.y = (float)y / ofGetHeight();
 
 	App->PostEvent(touchEvent);
 }

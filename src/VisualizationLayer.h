@@ -7,8 +7,12 @@ class VisualizationLayer : public IEventReceiver
 	PooledFactory<CircleVisualization> CircleFactory;
 	std::vector<CircleVisualization*> Circles;
 
+	ofVec2f CanvasDimensions;
+
 public:
-	VisualizationLayer(PooledFactory<CircleVisualization>& circleFactory);
+	VisualizationLayer(
+			PooledFactory<CircleVisualization>& circleFactory,
+			const ofVec2f& screenDimensions);
 
 	~VisualizationLayer();
 

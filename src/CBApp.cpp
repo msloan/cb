@@ -29,25 +29,26 @@ bool CBApp::DebugButtonPressed(const Event& event)
 	float y = event.Value.Touch.y;
 	if (event.Type == Event::TouchDown)
 	{
-		if (x < 100 && y <100)
+		if (x < 0.05f && y <0.05f)
 		{
 			RecordNewLayer();
 			return true;
 		}
-		else if (x > 0.9f * ofGetWidth() && y > 0.9f *ofGetHeight())
+		else if (x > 0.9f && y > 0.9f)
 		{
 			Stop();
 			Play();		
 			return true;
 		}
-		else if (x > 0.9f * ofGetWidth() && y < 100)
+		else if (x > 0.9f && y < 0.05f)
 		{
 			Reset();		
 			return true;
 		}
-		else if (x < 0.1f * ofGetWidth() && y > 0.9f * ofGetHeight())
+		else if (x < 0.1f && y > 0.9f)
 		{
 			Stop();
+			return true;
 		}
 	}
 	return false;
@@ -112,7 +113,11 @@ void CBApp::CreateNewLayer()
 {
 	assert(Layers.size() < MAX_LAYERS);
 
-	Layers.push_back(CompositionLayer(CircleFactory));
+	CompositionLayer layer = CompositionLayer(
+		CircleFactory,
+		ofVec2f((float)ofGetWidth(), (float)ofGetHeight()));
+
+	Layers.push_back(layer);
 }
 
 void CBApp::RecordNewLayer()

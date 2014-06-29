@@ -11,7 +11,6 @@ class CircleVisualization : public Poolable
 	ofVec2f Position;
 	ofColor InitialColor;
 	float 	InitialRadius;
-	float	VisibleDuration;
 
 	float	CurrentTime;
 	float	CurrentAlpha;
@@ -27,7 +26,6 @@ public:
 	void Initialize(
 		ofVec2f position, 
 		float radius, 
-		float visibleDuration,
 		ofColor color,
 		float startTime = 0.0f);
 

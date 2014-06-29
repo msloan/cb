@@ -8,7 +8,10 @@ class CompositionLayer
 	EventPlayer 		Player;	
 
 public:
-	CompositionLayer(PooledFactory<CircleVisualization>& CircleFactory);
+	CompositionLayer(
+			PooledFactory<CircleVisualization>& CircleFactory,
+			ofVec2f screenDimensions);
+
 	~CompositionLayer();
 
 	EventPlayer::State GetState();
