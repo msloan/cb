@@ -2,7 +2,7 @@
 #include "PooledFactory.h"
 #include <vector>
 #include "CompositionLayer.h"
-#include "ofxiOS.h"
+#include "ofSoundPlayer.h"
 
 
 
@@ -21,7 +21,6 @@ private:
 	PooledFactory<CircleVisualization> CircleFactory;
 
 	std::vector<CompositionLayer> Layers;
-   // ofSoundPlayer SoundPlayer;
 
 	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
     ofSoundPlayer SoundPlayer;
