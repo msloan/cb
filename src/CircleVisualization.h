@@ -9,14 +9,16 @@ class CircleVisualization : public Poolable
 	bool	_Done;
 
 	ofVec2f Position;
-	float	InitialRadius;
 	ofColor InitialColor;
 	float	VisibleDuration;
 
 	float	CurrentTime;
 	float	CurrentAlpha;
+	float	CurrentRadius;
 
 	void TweenAlpha(float time);
+	void TweenRadius(float time);
+	void ExpandContractToFixed(float time);
 public:
 
 	CircleVisualization();
