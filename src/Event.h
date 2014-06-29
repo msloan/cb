@@ -18,6 +18,7 @@ struct Event
 			int 	Id;
 			float	x;
 			float	y;
+            float   Pressure;
 		} Touch;
 
 
