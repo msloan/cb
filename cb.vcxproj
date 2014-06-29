@@ -120,5 +120,8 @@
     <ClInclude Include="src\SoundCloudClient.h" />
     <ClInclude Include="src\VisualizationLayer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="bin\data\now.mp3" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 #include "CBApp.h"
 #include "PCH.h"
 #include <vector>
+#include "ofMain.h"
 
 
 
@@ -22,7 +23,7 @@ CBApp::~CBApp()
 
 void CBApp::Initialize()
 {
-    SoundPlayer.loadSound("now.m4a", true);
+    SoundPlayer.loadSound("now.mp3", true);
 }
 
 bool CBApp::DebugButtonPressed(const Event& event)
