@@ -1,7 +1,8 @@
 #include "CBApp.h"
 #include "PCH.h"
 #include <vector>
-#include "ofAppRunner.h"
+
+
 
 
 #define MAX_CIRCLE_VISUALIZATIONS 1000
@@ -21,6 +22,7 @@ CBApp::~CBApp()
 
 void CBApp::Initialize()
 {
+    SoundPlayer.loadSound("now.m4a", true);
 }
 
 bool CBApp::DebugButtonPressed(const Event& event)
@@ -137,6 +139,8 @@ void CBApp::RecordNewLayer()
 
 void CBApp::PlayAllLayers()
 {
+
+    SoundPlayer.play();
 	for (int i = 0; i < Layers.size(); ++i)
 	{
 		Layers[i].Play(0.0f);
@@ -150,14 +154,15 @@ void CBApp::Play()
 		Stop();
 	}
 
+
 	PlayAllLayers();
 	SetState(Playing);
 }
 
 void CBApp::Reset()
 {
+    Stop();
 	Layers.clear();
-	SetState(Idle);
 }
 
 void CBApp::StopAllLayers()
@@ -170,6 +175,8 @@ void CBApp::StopAllLayers()
 
 void CBApp::Stop()
 {
-	SetState(Idle);
+    SoundPlayer.stop();
+    SoundPlayer.setPosition(0.0);
     StopAllLayers();
+    SetState(Idle);
 }

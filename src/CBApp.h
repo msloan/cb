@@ -2,6 +2,9 @@
 #include "PooledFactory.h"
 #include <vector>
 #include "CompositionLayer.h"
+#include "ofxiOS.h"
+
+
 
 class CBApp
 {
@@ -18,9 +21,11 @@ private:
 	PooledFactory<CircleVisualization> CircleFactory;
 
 	std::vector<CompositionLayer> Layers;
+   // ofSoundPlayer SoundPlayer;
 
 	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
-	
+    ofSoundPlayer SoundPlayer;
+    
 	State CurrentState;
 
 	void SetState(State nextState)	{ CurrentState = nextState; }
