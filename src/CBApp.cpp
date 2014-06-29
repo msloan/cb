@@ -23,7 +23,7 @@ CBApp::~CBApp()
 
 void CBApp::Initialize()
 {
-    SoundPlayer.loadSound("now.m4a", true);
+    SoundPlayer.loadSound("now.mp3", true);
 }
 
 bool CBApp::DebugButtonPressed(const Event& event)
