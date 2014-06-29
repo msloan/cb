@@ -10,6 +10,7 @@ class CircleVisualization : public Poolable
 
 	ofVec2f Position;
 	ofColor InitialColor;
+	float 	InitialRadius;
 	float	VisibleDuration;
 
 	float	CurrentTime;
