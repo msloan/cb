@@ -58,7 +58,6 @@ void VisualizationLayer::Update(float dt)
 
 void VisualizationLayer::Draw()
 {
-    ofClear(ofColor::black);
 	for (int i = 0; i < Circles.size(); i++)
 	{
 		Circles[i]->Draw();

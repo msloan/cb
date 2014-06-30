@@ -14,6 +14,7 @@ CBApp::CBApp()
 {
 	Layers.reserve(MAX_LAYERS);
 	CurrentState = Idle;
+	PlayFromTime = 0.0f;
 }
 
 
@@ -56,6 +57,7 @@ bool CBApp::DebugButtonPressed(const Event& event)
 	}
 	return false;
 }
+
 void CBApp::PostEvent(const Event& event)
 {
 	if (DebugButtonPressed(event)) return;
@@ -82,14 +84,31 @@ void CBApp::UpdateLayers(float dt)
 
 void CBApp::Update(float dt)
 {
-	UpdateLayers(dt);
-
 	switch (CurrentState)
 	{
 	case Idle:
+		UpdateLayers(dt);
+		break;
+	case LoadingNewPosition:
+		if (SoundPlayer.isLoaded())
+		{
+			if (NextState ==  Playing)
+			{
+				SoundPlayer.play();
+				PlayAllLayers(PlayFromTime);
+			}
+			else if (NextState == Recording)
+			{
+				SoundPlayer.play();
+				PlayAllLayers(PlayFromTime);
+				CreateNewLayer();
+			}
+			SetState(NextState);
+		}
 		break;
 
 	case Playing: 
+		UpdateLayers(dt);
 		if (CurrentLayer().GetState() == EventPlayer::Idle)
 		{
 			SetState(Idle);
@@ -97,6 +116,7 @@ void CBApp::Update(float dt)
 		break;
 
 	case Recording: 
+		UpdateLayers(dt);
 		Event timePassed;
 		timePassed.Type = Event::TimePassed;
 		timePassed.Value.TimePassed.DeltaTime = dt;
@@ -108,6 +128,7 @@ void CBApp::Update(float dt)
 
 void CBApp::Draw()
 {
+	ofClear(ofColor::black);
 	for (int i = 0; i < Layers.size(); ++i)
 	{
 		Layers[i].Draw();
@@ -132,19 +153,27 @@ void CBApp::RecordNewLayer()
 		Stop();
 	}
 
-	PlayAllLayers();
-	CreateNewLayer();
-
-	SetState(Recording);
+	SetPositionAndTransition(0.0f, Recording);
 }
 
-void CBApp::PlayAllLayers()
+void CBApp::SetPosition(float time)
 {
+	SetPositionAndTransition(time, Idle);
+}
 
-    SoundPlayer.play();
+void CBApp::SetPositionAndTransition(float time, State nextState)
+{
+	NextState = nextState;
+	PlayFromTime = time;
+    SoundPlayer.setPosition(time);
+	SetState(LoadingNewPosition);
+}
+
+void CBApp::PlayAllLayers(float time)
+{
 	for (int i = 0; i < Layers.size(); ++i)
 	{
-		Layers[i].Play(0.0f);
+		Layers[i].Play(time);
 	}
 }
 
@@ -155,9 +184,7 @@ void CBApp::Play()
 		Stop();
 	}
 
-
-	PlayAllLayers();
-	SetState(Playing);
+	SetPositionAndTransition(0.0f, Playing);
 }
 
 void CBApp::Reset()
@@ -177,7 +204,6 @@ void CBApp::StopAllLayers()
 void CBApp::Stop()
 {
     SoundPlayer.stop();
-    SoundPlayer.setPosition(0.0);
     StopAllLayers();
     SetState(Idle);
 }

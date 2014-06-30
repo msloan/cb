@@ -14,6 +14,8 @@ public:
 		Idle,
 		Recording,
 		Playing,
+
+		LoadingNewPosition,
 	};
 	
 private:
@@ -21,21 +23,29 @@ private:
 	PooledFactory<CircleVisualization> CircleFactory;
 
 	std::vector<CompositionLayer> Layers;
+    ofSoundPlayer SoundPlayer;
 
 	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
-    ofSoundPlayer SoundPlayer;
-    
 	State CurrentState;
+	State NextState;
 
-	void SetState(State nextState)	{ CurrentState = nextState; }
+	float PlayFromTime;
+
+	void SetState(State nextState)	
+	{ 
+		PreviousState = CurrentState;
+		CurrentState = nextState; 
+	}
+
 	bool DebugButtonPressed(const Event& event);
 
 	void ClearAllLayers();
 	void StopAllLayers();
 	void UpdateLayers(float dt);
-	void PlayAllLayers();
+	void PlayAllLayers(float dt);
 
 	void CreateNewLayer();
+	void SetPositionAndTransition(float time, State nextState);
 
 public:
 	CBApp::State GetState()			{ return CurrentState; }
@@ -53,5 +63,6 @@ public:
 	void Play();
 	void Reset();
 	void Stop();
+	void SetPosition(float time);
 };
 
