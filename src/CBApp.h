@@ -33,7 +33,6 @@ private:
 
 	void SetState(State nextState)	
 	{ 
-		PreviousState = CurrentState;
 		CurrentState = nextState; 
 	}
 
