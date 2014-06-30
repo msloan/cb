@@ -107,6 +107,19 @@
     <ClCompile Include="src\EventPlayer.cpp" />
     <ClCompile Include="src\SoundCloudClient.cpp" />
     <ClCompile Include="src\VisualizationLayer.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasing.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingBack.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingBounce.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingCirc.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingCubic.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingElastic.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingExpo.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingLinear.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingQuad.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingQuart.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingQuint.cpp" />
+    <ClCompile Include="tween\Easings\ofxEasingSine.cpp" />
+    <ClCompile Include="tween\ofxTween.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ofApp.h" />
@@ -119,9 +132,25 @@
     <ClInclude Include="src\PooledFactory.h" />
     <ClInclude Include="src\SoundCloudClient.h" />
     <ClInclude Include="src\VisualizationLayer.h" />
+    <ClInclude Include="tween\Easings\ofxEasing.h" />
+    <ClInclude Include="tween\Easings\ofxEasingBack.h" />
+    <ClInclude Include="tween\Easings\ofxEasingBounce.h" />
+    <ClInclude Include="tween\Easings\ofxEasingCirc.h" />
+    <ClInclude Include="tween\Easings\ofxEasingCubic.h" />
+    <ClInclude Include="tween\Easings\ofxEasingElastic.h" />
+    <ClInclude Include="tween\Easings\ofxEasingExpo.h" />
+    <ClInclude Include="tween\Easings\ofxEasingLinear.h" />
+    <ClInclude Include="tween\Easings\ofxEasingQuad.h" />
+    <ClInclude Include="tween\Easings\ofxEasingQuart.h" />
+    <ClInclude Include="tween\Easings\ofxEasingQuint.h" />
+    <ClInclude Include="tween\Easings\ofxEasingSine.h" />
+    <ClInclude Include="tween\ofxTween.h" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="bin\data\now.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tween\Easings\easing_terms_of_use.html" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>
