@@ -29,7 +29,8 @@ void ofiOSApp::touchDown(ofTouchEventArgs & touch){
     touchEvent.Value.Touch.Id = touch.id;
     touchEvent.Value.Touch.x = (float)touch.x / ofGetWidth();
     touchEvent.Value.Touch.y = (float)touch.y / ofGetHeight();
-    
+    touchEvent.Value.Touch.Pressure = touch.majoraxis;
+
 
     App->PostEvent(touchEvent);
 }

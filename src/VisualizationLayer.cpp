@@ -1,8 +1,7 @@
 #include "PCH.h"
 #include "VisualizationLayer.h"
 
-// Size in relation to drawing area height
-#define CIRCLE_RADIUS (1.f / 25.f)
+#define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
 VisualizationLayer::VisualizationLayer(
 		PooledFactory<CircleVisualization>& circleFactory,
@@ -28,8 +27,8 @@ void VisualizationLayer::OnEvent(const Event& event)
 		CircleVisualization* newCircle = CircleFactory.Create();
 		newCircle->Initialize(
 			position,
-			CIRCLE_RADIUS * CanvasDimensions.y,
-			ofColor::blueSteel,
+			CIRCLE_RADIUS_MODIFIER * CanvasDimensions.y * event.Value.Touch.Pressure,
+            ofColor::yellow,
 			0.0f);
 
 		Circles.push_back(newCircle);
@@ -59,6 +58,7 @@ void VisualizationLayer::Update(float dt)
 
 void VisualizationLayer::Draw()
 {
+    ofClear(ofColor::black);
 	for (int i = 0; i < Circles.size(); i++)
 	{
 		Circles[i]->Draw();
