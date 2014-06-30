@@ -43,7 +43,7 @@ void ofApp::mousePressed(int x, int y, int button)
 	touchEvent.Value.Touch.Id = button;
 	touchEvent.Value.Touch.x = (float)x / ofGetWidth(),
 	touchEvent.Value.Touch.y = (float)y / ofGetHeight();
-	touchEvent.Value.Touch.Pressure = 20.f;
+	touchEvent.Value.Touch.Pressure = 15.f;
 
 	App->PostEvent(touchEvent);
 }
