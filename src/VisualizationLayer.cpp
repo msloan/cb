@@ -33,6 +33,13 @@ void VisualizationLayer::OnEvent(const Event& event)
 
 		Circles.push_back(newCircle);
 	}
+	else if (event.Type == Event::TouchMove)
+	{
+		if(Circles.size() > 0)
+		{
+			Circles.back()->Drag(event.Value.Touch.x * CanvasDimensions.x ,event.Value.Touch.y * CanvasDimensions.y);
+		}
+	}
 	else if (event.Type == Event::TimePassed)
 	{
 		Update(event.Value.TimePassed.DeltaTime);

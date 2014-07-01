@@ -33,6 +33,15 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
+
+	Event touchMoveEvent;
+	touchMoveEvent.Type = Event::Type::TouchMove;
+	touchMoveEvent.Value.Touch.Id = button;
+	touchMoveEvent.Value.Touch.x = (float)x / ofGetWidth();
+	touchMoveEvent.Value.Touch.y = (float)y / ofGetHeight();
+	touchMoveEvent.Value.Touch.Pressure = 15.f;
+
+	App->PostEvent(touchMoveEvent);
 }
 
 //--------------------------------------------------------------

@@ -21,13 +21,21 @@ void CircleVisualization::Initialize(
 {
 	Position = position;
 	InitialRadius = radius;
-	CurrentRadius = InitialRadius;
 	InitialColor = color;
+
+	CurrentRadius = InitialRadius;
+	CurrentAlpha = STARTING_ALPHA;
 	CurrentTime = 0.0f;
 	_Done = false;
 
-	TweenAlpha(startTime);
+	
 	_Done = false;
+}
+
+void CircleVisualization::Drag(float x, float y)
+{
+	Position = ofVec2f(x,y);
+	CurrentTime = 0;
 }
 
 void CircleVisualization::TweenAlpha(float time)
@@ -65,3 +73,4 @@ void CircleVisualization::Draw()
 	ofSetCircleResolution(CIRCLE_RESOLUTION);
 	ofCircle(Position.x, Position.y, CurrentRadius);
 }
+

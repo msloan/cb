@@ -35,6 +35,8 @@ public:
 
 	bool Done()			{ return _Done; }
 
+	void CircleVisualization::Drag(float x, float y);
+
 	void Update(float dt);
 	void Draw();
 };

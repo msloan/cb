@@ -38,6 +38,14 @@ void ofiOSApp::touchDown(ofTouchEventArgs & touch){
 //--------------------------------------------------------------
 void ofiOSApp::touchMoved(ofTouchEventArgs & touch){
 
+	Event touchMoveEvent;
+	touchMoveEvent.Type = Event::Type::TouchMove;
+	touchMoveEvent.Value.Touch.Id = touch.id;
+	touchMoveEvent.Value.Touch.x = (float)touch.x / ofGetWidth();
+	touchMoveEvent.Value.Touch.y = (float)touch.y / ofGetHeight();
+	touchMoveEvent.Value.Touch.Pressure = touch.majoraxis;
+
+	App->PostEvent(touchMoveEvent);
 }
 
 //--------------------------------------------------------------
