@@ -2,7 +2,7 @@
 
 #include "of3dPrimitives.h"
 #include "PooledFactory.h"
-
+#include "../tween/ofxTween.h"
 class CircleVisualization : public Poolable
 {
 
@@ -15,6 +15,10 @@ class CircleVisualization : public Poolable
 	float	CurrentTime;
 	float	CurrentAlpha;
 	float	CurrentRadius;
+
+	ofxTween tweenQuart;
+	ofxEasingExpo easingExpo;
+	ofxEasingQuad easingQuad;
 
 	void TweenAlpha(float time);
 	void TweenRadius(float time);

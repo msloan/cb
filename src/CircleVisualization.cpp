@@ -5,12 +5,12 @@
 #define CIRCLE_RESOLUTION 100
 
 #define DURATION 1.f
-#define CONTRACT_TIME (DURATION / 30.f)
+#define CONTRACT_TIME (DURATION / 15.f)
 #define MAX_RADIUS 1.3f
 
 CircleVisualization::CircleVisualization()
 {
-	_Done = false;
+
 }
 
 void CircleVisualization::Initialize(
@@ -27,31 +27,23 @@ void CircleVisualization::Initialize(
 	_Done = false;
 
 	TweenAlpha(startTime);
-}
-
-//Returns a value between startScale and endScale scaling linearly with time.
-float Tween(float time, float endTime, float startValue, float endValue)
-{
-	return startValue + time / endTime * (endValue - startValue);
+	_Done = false;
 }
 
 void CircleVisualization::TweenAlpha(float time)
 {
-	if(time >= CONTRACT_TIME)
-	{
-		CurrentAlpha = Tween(time, DURATION, STARTING_ALPHA, 0.f);
-	}
+	CurrentAlpha = ofxTween::map(time, 0.f, DURATION, STARTING_ALPHA, 0, false, easingQuad, ofxTween::easeOut);
 }
 
 void CircleVisualization::ExpandContractToFixed(float time)
 {
 	if(time < CONTRACT_TIME)
 	{
-		CurrentRadius = Tween(time, CONTRACT_TIME, InitialRadius, MAX_RADIUS * InitialRadius);
+		CurrentRadius = ofxTween::map(time, 0.f, CONTRACT_TIME, InitialRadius, MAX_RADIUS * InitialRadius, false, easingQuad, ofxTween::easeIn);
 	}
 	else
 	{
-		CurrentRadius = Tween(time, DURATION, MAX_RADIUS * InitialRadius, 0.0f);
+		CurrentRadius = ofxTween::map(time, CONTRACT_TIME, DURATION, MAX_RADIUS * InitialRadius, 0, false, easingQuad, ofxTween::easeOut);
 	}
 }
 
