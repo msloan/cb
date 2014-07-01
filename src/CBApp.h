@@ -11,11 +11,17 @@ class CBApp
 public:
 	enum State
 	{
-		Idle,
+		Paused,
 		Recording,
 		Playing,
 
 		LoadingNewPosition,
+	};
+
+	enum Mode
+	{
+		mode_Play,
+		mode_Edit
 	};
 	
 private:
@@ -27,23 +33,31 @@ private:
 
 	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
 	State CurrentState;
-	State NextState;
+	State PreviousState;
 
 	float PlayFromTime;
 
+	Mode CurrentMode;
+
 	void SetState(State nextState)	
 	{ 
+		PreviousState = CurrentState;
 		CurrentState = nextState; 
+	}
+
+	void SetMode(Mode newMode)
+	{
+		CurrentMode = newMode;
 	}
 
 	bool DebugButtonPressed(const Event& event);
 
 	void ClearAllLayers();
-	void StopAllLayers();
 	void UpdateLayers(float dt);
-	void PlayAllLayers(float dt);
+	void PlayAllLayers();
+	void PlayAllSavedLayers();
+	void SetLayersPosition(float time);
 
-	void CreateNewLayer();
 	void SetPositionAndTransition(float time, State nextState);
 
 public:
@@ -58,10 +72,12 @@ public:
 
 	void PostEvent(const Event& Event);
 
-	void RecordNewLayer();
+	void CreateNewLayer();
+
 	void Play();
 	void Reset();
-	void Stop();
 	void SetPosition(float time);
+	void Record();
+	void Pause();
 };
 

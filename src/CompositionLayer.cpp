@@ -17,10 +17,27 @@ EventPlayer::State CompositionLayer::GetState()
 	return Player.GetState();
 }
 
-void CompositionLayer::Play(float startTime)
+void CompositionLayer::Truncate(float time)
 {
-	Player.Stop();
-	Player.StartPlayback(startTime, &Visuals);
+	Player.Truncate(time);
+	Replay();
+}
+
+void CompositionLayer::Replay()
+{
+	Visuals.Clear();
+	Player.Replay(&Visuals);
+}
+
+void CompositionLayer::SetPosition(float time)
+{
+	Player.SetPosition(time);
+	Replay();
+}
+
+void CompositionLayer::Play()
+{
+	Player.Play(&Visuals);
 }
 
 void CompositionLayer::Record(const Event& event)

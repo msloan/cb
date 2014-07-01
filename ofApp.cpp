@@ -18,6 +18,42 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	CBApp::State state = App->GetState();
+	switch (key)
+	{
+		case '0':
+
+			App->SetPosition(0.0f);
+			break;
+		case '1':
+
+			App->SetPosition(1.0f);
+			break;
+		case '2':
+
+			App->SetPosition(10.0f);
+			break;
+		case '3':
+
+			App->SetPosition(100.0f);
+			break;
+
+		case 'p':
+			switch (state)
+			{
+				case CBApp::Playing:
+				case CBApp::Recording:
+
+					App->Pause();
+					break;
+
+				case CBApp::Paused:
+
+					App->Play();
+					break;
+			}
+			break;
+	}
 	
 }
 

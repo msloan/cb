@@ -20,7 +20,6 @@ public:
 private:
 	std::vector<Event> Events;
 
-	float	StartTime;
 	float	UnconsumedTime;
 	int		NextEventIndex;
 	bool	_PlaybackFinished;
@@ -47,7 +46,10 @@ public:
 
 	const std::vector<Event>& GetRecordedEvents();
 
-	void StartPlayback(float startTime, IEventReceiver* receiver);
+	void SetPosition(float time);
+	void Play(IEventReceiver* receiver);
+	void Replay(IEventReceiver* receiver);
+	void Truncate(float time);
 	void Update(float dt);
 
 	State GetState() { return CurrentState; }

@@ -7,6 +7,8 @@ class CompositionLayer
 	VisualizationLayer 	Visuals;
 	EventPlayer 		Player;	
 
+	void Replay();
+
 public:
 	CompositionLayer(
 			PooledFactory<CircleVisualization>& CircleFactory,
@@ -15,7 +17,10 @@ public:
 	~CompositionLayer();
 
 	EventPlayer::State GetState();
-	void Play(float startTime);
+
+	void SetPosition(float time);
+	void Play();
+	void Truncate(float time);
 	void Record(const Event& event);
 	void Reset();
 	void Stop();

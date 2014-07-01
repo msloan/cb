@@ -34,17 +34,28 @@ void EventPlayer::Clear()
 	Events.clear();
 }
 
-void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
+void EventPlayer::SetPosition(float time)
+{
+	// TODO
+	NextEventIndex = 0;
+}
+
+void EventPlayer::Replay(IEventReceiver* receiver)
+{
+	// TODO
+}
+
+void EventPlayer::Truncate(float time)
+{
+	// TODO
+}
+void EventPlayer::Play(IEventReceiver* receiver)
 {
 	assert(receiver != NULL);
-	assert(startTime >= 0.f);
 	assert(CurrentState == Idle);
 
 	PlaybackReceiver = receiver;
 
-	// TODO: find NextEventIndex based on startTime
-	StartTime = startTime;
-	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
 	_PlaybackFinished = false;
 
