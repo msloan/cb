@@ -13,7 +13,7 @@ class EventPlayer
 public:
 	enum State
 	{
-		Idle,
+		Paused,
 		Playing
 	};
 
@@ -40,14 +40,16 @@ public:
 
 	void Clear();
 
+	void SetReceiver(IEventReceiver* receiver);
+
 	void Record(const Event& newEvent);
 	void Reset();
-	void Stop();
 
 	const std::vector<Event>& GetRecordedEvents();
 
 	void SetPosition(float time);
-	void Play(IEventReceiver* receiver);
+	void Play();
+	void Pause();
 	void Replay(IEventReceiver* receiver);
 	void Truncate(float time);
 	void Update(float dt);

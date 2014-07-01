@@ -35,8 +35,6 @@ private:
 	State CurrentState;
 	State PreviousState;
 
-	float PlayFromTime;
-
 	Mode CurrentMode;
 
 	void SetState(State nextState)	
@@ -58,7 +56,7 @@ private:
 	void PlayAllSavedLayers();
 	void SetLayersPosition(float time);
 
-	void SetPositionAndTransition(float time, State nextState);
+	void CreateNewLayer();
 
 public:
 	CBApp::State GetState()			{ return CurrentState; }
@@ -72,8 +70,7 @@ public:
 
 	void PostEvent(const Event& Event);
 
-	void CreateNewLayer();
-
+	void SaveLayer();
 	void Play();
 	void Reset();
 	void SetPosition(float time);

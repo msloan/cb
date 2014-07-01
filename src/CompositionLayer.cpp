@@ -37,7 +37,8 @@ void CompositionLayer::SetPosition(float time)
 
 void CompositionLayer::Play()
 {
-	Player.Play(&Visuals);
+	Player.SetReceiver(&Visuals);
+	Player.Play();
 }
 
 void CompositionLayer::Record(const Event& event)
@@ -55,7 +56,7 @@ void CompositionLayer::Reset()
 void CompositionLayer::Stop()
 {
 	Visuals.Clear();
-	Player.Stop();
+	Player.Pause();
 }
 
 void CompositionLayer::Update(float dt)

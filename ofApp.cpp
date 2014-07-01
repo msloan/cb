@@ -53,6 +53,14 @@ void ofApp::keyPressed(int key){
 					break;
 			}
 			break;
+
+		case 'r':
+			App->Record();
+			break;
+
+		case 'l':
+			App->SaveLayer();
+			break;
 	}
 	
 }

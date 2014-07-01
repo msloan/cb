@@ -24,12 +24,13 @@ void CBApp::Initialize()
 {
     SoundPlayer.loadSound("now.mp3", true);
 
-	Pause();
 	SoundPlayer.play();
+	Pause();
 
 	CreateNewLayer();
 
 	PreviousState = Paused;
+	CurrentMode = mode_Edit;
 }
 
 bool CBApp::DebugButtonPressed(const Event& event)
@@ -107,7 +108,7 @@ void CBApp::Update(float dt)
 
 	case Playing: 
 		UpdateLayers(dt);
-		if (CurrentLayer().GetState() == EventPlayer::Idle)
+		if (CurrentLayer().GetState() == EventPlayer::Paused)
 		{
 			SetState(Paused);
 		}
@@ -133,6 +134,14 @@ void CBApp::Draw()
 	}
 }
 
+void CBApp::SaveLayer()
+{
+	assert(Layers.size() > 0);
+
+	CreateNewLayer();
+	SetPosition(0.0f);
+	Pause();
+}
 void CBApp::CreateNewLayer()
 {
 	assert(Layers.size() < MAX_LAYERS);
@@ -154,15 +163,12 @@ void CBApp::Record()
 
 void CBApp::Pause()
 {
-	assert(CurrentState == Playing || CurrentState == Recording);
-
 	SoundPlayer.setPaused(true);
 	SetState(Paused);
 }
 
 void CBApp::SetPosition(float time)
 {
-	PlayFromTime = time;
     SoundPlayer.setPosition(time);
 	SetLayersPosition(time);	
 	SetState(LoadingNewPosition);
@@ -215,7 +221,6 @@ void CBApp::PlayAllSavedLayers()
 
 void CBApp::Play()
 {
-
 	SoundPlayer.play();
 	PlayAllLayers();
 }

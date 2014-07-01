@@ -3,7 +3,7 @@
 
 EventPlayer::EventPlayer()
 {
-	CurrentState = Idle;
+	CurrentState = Paused;
 	_PlaybackFinished = false;
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
@@ -11,25 +11,27 @@ EventPlayer::EventPlayer()
 
 void EventPlayer::Record(const Event& newEvent)
 {
-	assert(CurrentState == Idle);
+	assert(CurrentState == Paused);
 
 	Events.push_back(newEvent);
 }
 
 void EventPlayer::Reset()
 {
-	Stop();
+	Pause();
 	Events.clear();
 }
 
-void EventPlayer::Stop()
+void EventPlayer::Pause()
 {
-	SetState(Idle);
+	assert(CurrentState == Playing);
+
+	SetState(Paused);
 }
 
 void EventPlayer::Clear()
 {
-	assert(CurrentState == Idle);
+	assert(CurrentState == Paused);
 
 	Events.clear();
 }
@@ -38,6 +40,7 @@ void EventPlayer::SetPosition(float time)
 {
 	// TODO
 	NextEventIndex = 0;
+	UnconsumedTime = 0.f;
 }
 
 void EventPlayer::Replay(IEventReceiver* receiver)
@@ -49,16 +52,17 @@ void EventPlayer::Truncate(float time)
 {
 	// TODO
 }
-void EventPlayer::Play(IEventReceiver* receiver)
+
+void EventPlayer::SetReceiver(IEventReceiver* receiver) 
+{ 
+	PlaybackReceiver = receiver; 
+}
+
+void EventPlayer::Play()
 {
-	assert(receiver != NULL);
-	assert(CurrentState == Idle);
+	assert(CurrentState == Paused);
 
-	PlaybackReceiver = receiver;
-
-	UnconsumedTime = 0.f;
 	_PlaybackFinished = false;
-
 	SetState(Playing);
 }
 
@@ -93,7 +97,7 @@ void EventPlayer::Update(float dt)
 		}
 		break;
 
-	case Idle:
+	case Paused:
 		break;
 	}
 }
