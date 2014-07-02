@@ -5,12 +5,26 @@
 
 class CompositionLayer
 {
+public:
+
+	enum State
+	{
+		Paused,
+		Playing,
+		Recording
+	};
+
+private:
+
 	ofPtr<VisualizationLayer> 	Visuals;
 	EventPlayer 				Player;	
+	State 						CurrentState;
 
 	void Replay();
+	void SetState(State state);
 
 	CompositionLayer(const CompositionLayer& other) {}
+
 public:
 	CompositionLayer(
 			PooledFactory<CircleVisualization>& CircleFactory,
@@ -18,7 +32,7 @@ public:
 
 	~CompositionLayer();
 
-	EventPlayer::State GetState();
+	State GetState();
 
 	void SetPosition(float time);
 	void Play();

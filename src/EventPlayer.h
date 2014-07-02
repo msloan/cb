@@ -11,29 +11,20 @@ public:
 class EventPlayer
 {
 public:
-	enum State
-	{
-		Paused,
-		Playing
-	};
-
 private:
 	std::vector<Event> Events;
 
 	float	UnconsumedTime;
 	int		NextEventIndex;
-	bool	_PlaybackFinished;
 
 	ofPtr<IEventReceiver> PlaybackReceiver;
-
-	State CurrentState;
-	void SetState(State state) { CurrentState = state; }
 
 	void	PlayNextEvent();
 	Event&	NextEvent();
 	bool	CaughtUp();
 	bool	PlaybackFinished();
 	void 	SendTimePassedEvent(float dt);
+	bool	GetNextTimeEventIndex(int currentIndex, int* result);
 
 public:
 	EventPlayer();
@@ -43,17 +34,10 @@ public:
 	void SetReceiver(ofPtr<IEventReceiver> receiver);
 
 	void Record(const Event& newEvent);
-	void Reset();
-
-	const std::vector<Event>& GetRecordedEvents();
 
 	void SetPosition(float time);
-	void Play();
-	void Pause();
+	void Play(float dt);
 	void Replay(ofPtr<IEventReceiver> receiver);
 	void Truncate(float time);
-	void Update(float dt);
-
-	State GetState() { return CurrentState; }
 };
 

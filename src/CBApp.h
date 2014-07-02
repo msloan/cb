@@ -18,12 +18,6 @@ public:
 		LoadingNewPosition,
 	};
 
-	enum Mode
-	{
-		mode_Play,
-		mode_Edit
-	};
-	
 private:
 
 	PooledFactory<CircleVisualization> CircleFactory;
@@ -34,8 +28,6 @@ private:
 	CompositionLayer& CurrentLayer() 	{ return *(Layers.back()); }
 	State CurrentState;
 	State PreviousState;
-
-	Mode CurrentMode;
 
 	void SetState(State nextState)	
 	{ 
@@ -75,8 +67,5 @@ public:
 	void SetPosition(float time);
 	void Record();
 	void Pause();
-
-	void SetMode(Mode newMode);
-	Mode GetMode();
 };
 

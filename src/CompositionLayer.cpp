@@ -12,9 +12,14 @@ CompositionLayer::~CompositionLayer()
 	Visuals->Clear();
 }
 
-EventPlayer::State CompositionLayer::GetState()
+CompositionLayer::State CompositionLayer::GetState()
 {
-	return Player.GetState();
+	return CurrentState;
+}
+
+void CompositionLayer::SetState(State newState)
+{
+	CurrentState = newState;
 }
 
 void CompositionLayer::Truncate(float time)
@@ -31,20 +36,22 @@ void CompositionLayer::Replay()
 
 void CompositionLayer::SetPosition(float time)
 {
+	Visuals->Clear();
+	Pause();
 	Player.SetPosition(time);
-	Replay();
 }
 
 void CompositionLayer::Play()
 {
 	Player.SetReceiver(Visuals);
-	Player.Play();
+	SetState(Playing);
 }
 
 void CompositionLayer::Record(const Event& event)
 {
 	Player.Record(event);
 	Visuals->OnEvent(event);
+	SetState(Recording);
 }
 
 void CompositionLayer::Reset()
@@ -55,12 +62,15 @@ void CompositionLayer::Reset()
 
 void CompositionLayer::Pause()
 {
-	Player.Pause();
+	SetState(Paused);
 }
 
 void CompositionLayer::Update(float dt)
 {
-	Player.Update(dt);
+	if (CurrentState == Playing)
+	{
+		Player.Play(dt);
+	}
 }
 
 void CompositionLayer::Draw()

@@ -3,43 +3,57 @@
 
 EventPlayer::EventPlayer()
 {
-	CurrentState = Paused;
-	_PlaybackFinished = false;
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
 }
 
 void EventPlayer::Record(const Event& newEvent)
 {
-	assert(CurrentState == Paused);
-
 	Events.push_back(newEvent);
 	NextEventIndex = Events.size();
 }
 
-void EventPlayer::Reset()
-{
-	Pause();
-	Events.clear();
-}
-
-void EventPlayer::Pause()
-{
-	SetState(Paused);
-}
-
 void EventPlayer::Clear()
 {
-	assert(CurrentState == Paused);
-
 	Events.clear();
 }
 
+bool EventPlayer::GetNextTimeEventIndex(int currentIndex, int* result)
+{
+	do
+	{
+		++currentIndex;
+		if (currentIndex >= Events.size()) 
+		{
+			return false;
+		} 
+	}
+	while (Events[currentIndex].Type != Event::TimePassed);
+
+	*result = currentIndex;
+	return true;
+}
 void EventPlayer::SetPosition(float time)
 {
-	// TODO
+	float accumulatedTime = 0.0f;
+	float nextTimeToAccumulate = 0.0f;
+	int eventsIndex = 0;
 	NextEventIndex = 0;
-	UnconsumedTime = 0.f;
+	while (GetNextTimeEventIndex(eventsIndex, &eventsIndex))
+	{
+		nextTimeToAccumulate = Events[eventsIndex].Value.TimePassed.DeltaTime;
+		if (accumulatedTime + nextTimeToAccumulate < time)
+		{
+			accumulatedTime += nextTimeToAccumulate;
+			NextEventIndex = eventsIndex;
+		}
+		else
+		{
+			break;
+		}
+	}
+
+	UnconsumedTime = -(time - accumulatedTime);
 }
 
 void EventPlayer::Replay(ofPtr<IEventReceiver> receiver)
@@ -57,42 +71,26 @@ void EventPlayer::SetReceiver(ofPtr<IEventReceiver> receiver)
 	PlaybackReceiver = receiver; 
 }
 
-void EventPlayer::Play()
+void EventPlayer::Play(float dt)
 {
-	assert(CurrentState == Paused);
-
-	_PlaybackFinished = false;
-	SetState(Playing);
-}
-
-void EventPlayer::Update(float dt)
-{
-	switch (CurrentState)
+	if (PlaybackFinished())
 	{
-	case Playing:
-		if (PlaybackFinished())
+		// Continue notifying event receiver that time is passing until EventPlayer is
+		// explicitly told to stop. This lets the visualizations at the end of a layer 
+		// continue to animate even if the playback was cut short.
+		SendTimePassedEvent(dt);
+		return;
+	}
+
+	UnconsumedTime += dt;
+	while (!PlaybackFinished() && !CaughtUp())
+	{
+		if (NextEvent().Type == Event::TimePassed)
 		{
-			// Continue notifying event receiver that time is passing until EventPlayer is
-			// explicitly told to stop. This lets the visualizations at the end of a layer 
-			// continue to animate/fade away even if the playback was cut short.
-			SendTimePassedEvent(dt);
-			return;
+			UnconsumedTime -= NextEvent().Value.TimePassed.DeltaTime;
 		}
 
-		UnconsumedTime += dt;
-		while (!PlaybackFinished() && !CaughtUp())
-		{
-			if (NextEvent().Type == Event::TimePassed)
-			{
-				UnconsumedTime -= NextEvent().Value.TimePassed.DeltaTime;
-			}
-
-			PlayNextEvent();
-		}
-		break;
-
-	case Paused:
-		break;
+		PlayNextEvent();
 	}
 }
 

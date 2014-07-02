@@ -19,16 +19,6 @@ CBApp::~CBApp()
 {
 }
 
-CBApp::Mode CBApp::GetMode()
-{
-	return CurrentMode;
-}
-
-void CBApp::SetMode(Mode newMode)
-{
-	CurrentMode = newMode;
-}
-
 void CBApp::Initialize()
 {
     SoundPlayer.loadSound("now.mp3", true);
@@ -39,7 +29,6 @@ void CBApp::Initialize()
 	CreateNewLayer();
 
 	PreviousState = Paused;
-	CurrentMode = mode_Edit;
 }
 
 bool CBApp::DebugButtonPressed(const Event& event)
@@ -117,7 +106,7 @@ void CBApp::Update(float dt)
 
 	case Playing: 
 		UpdateLayers(dt);
-		if (CurrentLayer().GetState() == EventPlayer::Paused)
+		if (CurrentLayer().GetState() == CompositionLayer::Paused)
 		{
 			SetState(Paused);
 		}
@@ -187,34 +176,19 @@ void CBApp::PauseAllLayers()
 
 void CBApp::SetPosition(float time)
 {
-    SoundPlayer.setPosition(time);
-	SetLayersPosition(time);	
+	SoundPlayer.setPaused(true);
+    SoundPlayer.setPositionMS(time * 1000.f);
+	SetLayersPosition(time);
+	PauseAllLayers();
+
 	SetState(LoadingNewPosition);
 }
 
 void CBApp::SetLayersPosition(float time)
 {
-	if (CurrentMode == mode_Edit)
+	for (int i = 0; i < Layers.size(); ++i)
 	{
-		for (int i = 0; i < Layers.size() - 1; ++i)
-		{
-			CompositionLayer& layer = *Layers[i];
-			if (&layer == &CurrentLayer())
-			{
-				CurrentLayer().Truncate(time);
-			}
-			else
-			{
-				Layers[i]->SetPosition(time);
-			}
-		}
-	}
-	else if (CurrentMode == mode_Play)
-	{
-		for (int i = 0; i < Layers.size() - 1; ++i)
-		{
-			Layers[i]->SetPosition(time);
-		}
+		Layers[i]->SetPosition(time);
 	}
 }
 
@@ -239,8 +213,9 @@ void CBApp::PlayAllSavedLayers()
 
 void CBApp::Play()
 {
-	SoundPlayer.play();
+	SoundPlayer.setPaused(false);
 	PlayAllLayers();
+	SetState(Playing);
 }
 
 void CBApp::Reset()
