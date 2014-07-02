@@ -43,7 +43,7 @@ void EventPlayer::SetPosition(float time)
 	UnconsumedTime = 0.f;
 }
 
-void EventPlayer::Replay(IEventReceiver* receiver)
+void EventPlayer::Replay(ofPtr<IEventReceiver> receiver)
 {
 	// TODO
 }
@@ -53,7 +53,7 @@ void EventPlayer::Truncate(float time)
 	// TODO
 }
 
-void EventPlayer::SetReceiver(IEventReceiver* receiver) 
+void EventPlayer::SetReceiver(ofPtr<IEventReceiver> receiver) 
 { 
 	PlaybackReceiver = receiver; 
 }

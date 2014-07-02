@@ -28,10 +28,10 @@ private:
 
 	PooledFactory<CircleVisualization> CircleFactory;
 
-	std::vector<CompositionLayer> Layers;
+	std::vector<ofPtr<CompositionLayer> > Layers;
     ofSoundPlayer SoundPlayer;
 
-	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
+	CompositionLayer& CurrentLayer() 	{ return *(Layers.back()); }
 	State CurrentState;
 	State PreviousState;
 

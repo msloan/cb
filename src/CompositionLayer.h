@@ -1,14 +1,16 @@
 #pragma once
 #include "VisualizationLayer.h"
 #include "EventPlayer.h"
+#include "ofMain.h"
 
 class CompositionLayer
 {
-	VisualizationLayer 	Visuals;
-	EventPlayer 		Player;	
+	ofPtr<VisualizationLayer> 	Visuals;
+	EventPlayer 				Player;	
 
 	void Replay();
 
+	CompositionLayer(const CompositionLayer& other) {}
 public:
 	CompositionLayer(
 			PooledFactory<CircleVisualization>& CircleFactory,

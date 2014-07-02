@@ -24,7 +24,7 @@ private:
 	int		NextEventIndex;
 	bool	_PlaybackFinished;
 
-	IEventReceiver* PlaybackReceiver;
+	ofPtr<IEventReceiver> PlaybackReceiver;
 
 	State CurrentState;
 	void SetState(State state) { CurrentState = state; }
@@ -40,7 +40,7 @@ public:
 
 	void Clear();
 
-	void SetReceiver(IEventReceiver* receiver);
+	void SetReceiver(ofPtr<IEventReceiver> receiver);
 
 	void Record(const Event& newEvent);
 	void Reset();
@@ -50,7 +50,7 @@ public:
 	void SetPosition(float time);
 	void Play();
 	void Pause();
-	void Replay(IEventReceiver* receiver);
+	void Replay(ofPtr<IEventReceiver> receiver);
 	void Truncate(float time);
 	void Update(float dt);
 

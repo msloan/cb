@@ -12,7 +12,6 @@
 CBApp::CBApp()
 	: CircleFactory(MAX_CIRCLE_VISUALIZATIONS)
 {
-	Layers.reserve(MAX_LAYERS);
 }
 
 
@@ -82,7 +81,7 @@ void CBApp::UpdateLayers(float dt)
 {
 	for (int i = 0; i < Layers.size(); ++i)
 	{
-		Layers[i].Update(dt);
+		Layers[i]->Update(dt);
 	}
 }
 
@@ -130,7 +129,7 @@ void CBApp::Draw()
 	ofClear(ofColor::black);
 	for (int i = 0; i < Layers.size(); ++i)
 	{
-		Layers[i].Draw();
+		Layers[i]->Draw();
 	}
 }
 
@@ -146,11 +145,11 @@ void CBApp::CreateNewLayer()
 {
 	assert(Layers.size() < MAX_LAYERS);
 
-	CompositionLayer layer = CompositionLayer(
+	CompositionLayer* layer = new CompositionLayer(
 		CircleFactory,
 		ofVec2f((float)ofGetWidth(), (float)ofGetHeight()));
 
-	Layers.push_back(layer);
+	Layers.push_back(ofPtr<CompositionLayer>(layer));
 }
 
 
@@ -180,14 +179,14 @@ void CBApp::SetLayersPosition(float time)
 	{
 		for (int i = 0; i < Layers.size() - 1; ++i)
 		{
-			CompositionLayer& layer = Layers[i];
+			CompositionLayer& layer = *Layers[i];
 			if (&layer == &CurrentLayer())
 			{
 				CurrentLayer().Truncate(time);
 			}
 			else
 			{
-				Layers[i].SetPosition(time);
+				Layers[i]->SetPosition(time);
 			}
 		}
 	}
@@ -195,7 +194,7 @@ void CBApp::SetLayersPosition(float time)
 	{
 		for (int i = 0; i < Layers.size() - 1; ++i)
 		{
-			Layers[i].SetPosition(time);
+			Layers[i]->SetPosition(time);
 		}
 	}
 }
@@ -204,7 +203,7 @@ void CBApp::PlayAllLayers()
 {
 	for (int i = 0; i < Layers.size(); ++i)
 	{
-		Layers[i].Play();
+		Layers[i]->Play();
 	}
 }
 
@@ -212,9 +211,9 @@ void CBApp::PlayAllSavedLayers()
 {
 	for (int i = 0; i < Layers.size(); ++i)
 	{
-		if (&Layers[i] != &CurrentLayer())
+		if (Layers[i].get() != &CurrentLayer())
 		{
-			Layers[i].Play();
+			Layers[i]->Play();
 		}
 	}
 }

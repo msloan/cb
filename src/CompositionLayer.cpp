@@ -3,13 +3,13 @@
 CompositionLayer::CompositionLayer(
 		PooledFactory<CircleVisualization>& CircleFactory,
 		ofVec2f screenDimensions)
-: Visuals(CircleFactory, screenDimensions)
+: Visuals(new VisualizationLayer(CircleFactory, screenDimensions))
 {
 }
 
 CompositionLayer::~CompositionLayer()
 {
-	Visuals.Clear();
+	Visuals->Clear();
 }
 
 EventPlayer::State CompositionLayer::GetState()
@@ -25,8 +25,8 @@ void CompositionLayer::Truncate(float time)
 
 void CompositionLayer::Replay()
 {
-	Visuals.Clear();
-	Player.Replay(&Visuals);
+	Visuals->Clear();
+	Player.Replay(Visuals);
 }
 
 void CompositionLayer::SetPosition(float time)
@@ -37,25 +37,25 @@ void CompositionLayer::SetPosition(float time)
 
 void CompositionLayer::Play()
 {
-	Player.SetReceiver(&Visuals);
+	Player.SetReceiver(Visuals);
 	Player.Play();
 }
 
 void CompositionLayer::Record(const Event& event)
 {
 	Player.Record(event);
-	Visuals.OnEvent(event);
+	Visuals->OnEvent(event);
 }
 
 void CompositionLayer::Reset()
 {
 	Player.Clear();
-	Visuals.Clear();
+	Visuals->Clear();
 }
 
 void CompositionLayer::Stop()
 {
-	Visuals.Clear();
+	Visuals->Clear();
 	Player.Pause();
 }
 
@@ -66,5 +66,5 @@ void CompositionLayer::Update(float dt)
 
 void CompositionLayer::Draw()
 {
-	Visuals.Draw();
+	Visuals->Draw();
 }
