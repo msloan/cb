@@ -1,11 +1,29 @@
 #pragma once
 #include "VisualizationLayer.h"
 #include "EventPlayer.h"
+#include "ofMain.h"
 
 class CompositionLayer
 {
-	VisualizationLayer 	Visuals;
-	EventPlayer 		Player;	
+public:
+
+	enum State
+	{
+		Paused,
+		Playing,
+		Recording
+	};
+
+private:
+
+	ofPtr<VisualizationLayer> 	Visuals;
+	EventPlayer 				Player;	
+	State 						CurrentState;
+
+	void Replay();
+	void SetState(State state);
+
+	CompositionLayer(const CompositionLayer& other) {}
 
 public:
 	CompositionLayer(
@@ -14,11 +32,14 @@ public:
 
 	~CompositionLayer();
 
-	EventPlayer::State GetState();
-	void Play(float startTime);
+	State GetState();
+
+	void SetPosition(float time);
+	void Play();
+	void Truncate(float time);
 	void Record(const Event& event);
 	void Reset();
-	void Stop();
+	void Pause();
 
 	void Update(float dt);
 	void Draw();

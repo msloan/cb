@@ -3,50 +3,77 @@
 CompositionLayer::CompositionLayer(
 		PooledFactory<CircleVisualization>& CircleFactory,
 		ofVec2f screenDimensions)
-: Visuals(CircleFactory, screenDimensions)
+: Visuals(new VisualizationLayer(CircleFactory, screenDimensions))
 {
 }
 
 CompositionLayer::~CompositionLayer()
 {
-	Visuals.Clear();
+	Visuals->Clear();
 }
 
-EventPlayer::State CompositionLayer::GetState()
+CompositionLayer::State CompositionLayer::GetState()
 {
-	return Player.GetState();
+	return CurrentState;
 }
 
-void CompositionLayer::Play(float startTime)
+void CompositionLayer::SetState(State newState)
 {
-	Player.Stop();
-	Player.StartPlayback(startTime, &Visuals);
+	CurrentState = newState;
+}
+
+void CompositionLayer::Truncate(float time)
+{
+	Player.Truncate(time);
+	Replay();
+}
+
+void CompositionLayer::Replay()
+{
+	Visuals->Clear();
+	Player.Replay(Visuals);
+}
+
+void CompositionLayer::SetPosition(float time)
+{
+	Visuals->Clear();
+	Pause();
+	Player.SetPosition(time);
+}
+
+void CompositionLayer::Play()
+{
+	Player.SetReceiver(Visuals);
+	SetState(Playing);
 }
 
 void CompositionLayer::Record(const Event& event)
 {
 	Player.Record(event);
-	Visuals.OnEvent(event);
+	Visuals->OnEvent(event);
+	SetState(Recording);
 }
 
 void CompositionLayer::Reset()
 {
 	Player.Clear();
-	Visuals.Clear();
+	Visuals->Clear();
 }
 
-void CompositionLayer::Stop()
+void CompositionLayer::Pause()
 {
-	Visuals.Clear();
-	Player.Stop();
+	SetState(Paused);
 }
 
 void CompositionLayer::Update(float dt)
 {
-	Player.Update(dt);
+	if (CurrentState == Playing)
+	{
+		Player.Play(dt);
+	}
 }
 
 void CompositionLayer::Draw()
 {
-	Visuals.Draw();
+	Visuals->Draw();
 }

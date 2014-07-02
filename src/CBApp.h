@@ -11,40 +11,43 @@ class CBApp
 public:
 	enum State
 	{
-		Idle,
+		Paused,
 		Recording,
 		Playing,
 
 		LoadingNewPosition,
 	};
-	
+
 private:
 
 	PooledFactory<CircleVisualization> CircleFactory;
 
-	std::vector<CompositionLayer> Layers;
+	std::vector<ofPtr<CompositionLayer> > Layers;
     ofSoundPlayer SoundPlayer;
 
-	CompositionLayer& CurrentLayer() 	{ return Layers.back(); }
+	CompositionLayer& CurrentLayer() 	{ return *(Layers.back()); }
 	State CurrentState;
-	State NextState;
-
-	float PlayFromTime;
+	State PreviousState;
 
 	void SetState(State nextState)	
 	{ 
+		PreviousState = CurrentState;
 		CurrentState = nextState; 
 	}
+
 
 	bool DebugButtonPressed(const Event& event);
 
 	void ClearAllLayers();
-	void StopAllLayers();
 	void UpdateLayers(float dt);
-	void PlayAllLayers(float dt);
+	void PlayAllLayers();
+	void PauseAllLayers();
+	void SetLayersPosition(float time);
+
+	void PlayAllSavedLayers();
+
 
 	void CreateNewLayer();
-	void SetPositionAndTransition(float time, State nextState);
 
 public:
 	CBApp::State GetState()			{ return CurrentState; }
@@ -58,10 +61,11 @@ public:
 
 	void PostEvent(const Event& Event);
 
-	void RecordNewLayer();
+	void SaveLayer();
 	void Play();
 	void Reset();
-	void Stop();
 	void SetPosition(float time);
+	void Record();
+	void Pause();
 };
 

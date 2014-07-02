@@ -3,87 +3,94 @@
 
 EventPlayer::EventPlayer()
 {
-	CurrentState = Idle;
-	_PlaybackFinished = false;
 	NextEventIndex = 0;
 	UnconsumedTime = 0.f;
 }
 
 void EventPlayer::Record(const Event& newEvent)
 {
-	assert(CurrentState == Idle);
-
 	Events.push_back(newEvent);
-}
-
-void EventPlayer::Reset()
-{
-	Stop();
-	Events.clear();
-}
-
-void EventPlayer::Stop()
-{
-	SetState(Idle);
+	NextEventIndex = Events.size();
 }
 
 void EventPlayer::Clear()
 {
-	assert(CurrentState == Idle);
-
 	Events.clear();
 }
 
-void EventPlayer::StartPlayback(float startTime, IEventReceiver* receiver)
+bool EventPlayer::GetNextTimeEventIndex(int currentIndex, int* result)
 {
-	assert(receiver != NULL);
-	assert(startTime >= 0.f);
-	assert(CurrentState == Idle);
+	do
+	{
+		++currentIndex;
+		if (currentIndex >= Events.size()) 
+		{
+			return false;
+		} 
+	}
+	while (Events[currentIndex].Type != Event::TimePassed);
 
-	PlaybackReceiver = receiver;
-
-	// TODO: find NextEventIndex based on startTime
-	StartTime = startTime;
+	*result = currentIndex;
+	return true;
+}
+void EventPlayer::SetPosition(float time)
+{
+	float accumulatedTime = 0.0f;
+	float nextTimeToAccumulate = 0.0f;
+	int eventsIndex = 0;
 	NextEventIndex = 0;
-	UnconsumedTime = 0.f;
-	_PlaybackFinished = false;
+	while (GetNextTimeEventIndex(eventsIndex, &eventsIndex))
+	{
+		nextTimeToAccumulate = Events[eventsIndex].Value.TimePassed.DeltaTime;
+		if (accumulatedTime + nextTimeToAccumulate < time)
+		{
+			accumulatedTime += nextTimeToAccumulate;
+			NextEventIndex = eventsIndex;
+		}
+		else
+		{
+			break;
+		}
+	}
 
-	SetState(Playing);
+	UnconsumedTime = -(time - accumulatedTime);
 }
 
-void EventPlayer::Update(float dt)
+void EventPlayer::Replay(ofPtr<IEventReceiver> receiver)
 {
-	switch (CurrentState)
+	// TODO
+}
+
+void EventPlayer::Truncate(float time)
+{
+	// TODO
+}
+
+void EventPlayer::SetReceiver(ofPtr<IEventReceiver> receiver) 
+{ 
+	PlaybackReceiver = receiver; 
+}
+
+void EventPlayer::Play(float dt)
+{
+	if (PlaybackFinished())
 	{
-	case Playing:
-		if (_PlaybackFinished)
+		// Continue notifying event receiver that time is passing until EventPlayer is
+		// explicitly told to stop. This lets the visualizations at the end of a layer 
+		// continue to animate even if the playback was cut short.
+		SendTimePassedEvent(dt);
+		return;
+	}
+
+	UnconsumedTime += dt;
+	while (!PlaybackFinished() && !CaughtUp())
+	{
+		if (NextEvent().Type == Event::TimePassed)
 		{
-			// Continue notifying event receiver that time is passing until EventPlayer is
-			// explicitly told to stop. This lets the visualizations at the end of a layer 
-			// continue to animate/fade away even if the playback was cut short.
-			SendTimePassedEvent(dt);
-			return;
+			UnconsumedTime -= NextEvent().Value.TimePassed.DeltaTime;
 		}
 
-		UnconsumedTime += dt;
-		while (!CaughtUp())
-		{
-			if (NextEvent().Type == Event::TimePassed)
-			{
-				UnconsumedTime -= NextEvent().Value.TimePassed.DeltaTime;
-			}
-
-			PlayNextEvent();
-			if (PlaybackFinished())
-			{
-				_PlaybackFinished = true;
-				return;
-			}
-		}
-		break;
-
-	case Idle:
-		break;
+		PlayNextEvent();
 	}
 }
 
