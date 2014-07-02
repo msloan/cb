@@ -25,7 +25,7 @@ public:
 	void Truncate(float time);
 	void Record(const Event& event);
 	void Reset();
-	void Stop();
+	void Pause();
 
 	void Update(float dt);
 	void Draw();

@@ -43,18 +43,17 @@ private:
 		CurrentState = nextState; 
 	}
 
-	void SetMode(Mode newMode)
-	{
-		CurrentMode = newMode;
-	}
 
 	bool DebugButtonPressed(const Event& event);
 
 	void ClearAllLayers();
 	void UpdateLayers(float dt);
 	void PlayAllLayers();
-	void PlayAllSavedLayers();
+	void PauseAllLayers();
 	void SetLayersPosition(float time);
+
+	void PlayAllSavedLayers();
+
 
 	void CreateNewLayer();
 
@@ -76,5 +75,8 @@ public:
 	void SetPosition(float time);
 	void Record();
 	void Pause();
+
+	void SetMode(Mode newMode);
+	Mode GetMode();
 };
 

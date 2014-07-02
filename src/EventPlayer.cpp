@@ -14,6 +14,7 @@ void EventPlayer::Record(const Event& newEvent)
 	assert(CurrentState == Paused);
 
 	Events.push_back(newEvent);
+	NextEventIndex = Events.size();
 }
 
 void EventPlayer::Reset()
@@ -24,8 +25,6 @@ void EventPlayer::Reset()
 
 void EventPlayer::Pause()
 {
-	assert(CurrentState == Playing);
-
 	SetState(Paused);
 }
 
@@ -71,7 +70,7 @@ void EventPlayer::Update(float dt)
 	switch (CurrentState)
 	{
 	case Playing:
-		if (_PlaybackFinished)
+		if (PlaybackFinished())
 		{
 			// Continue notifying event receiver that time is passing until EventPlayer is
 			// explicitly told to stop. This lets the visualizations at the end of a layer 
@@ -81,7 +80,7 @@ void EventPlayer::Update(float dt)
 		}
 
 		UnconsumedTime += dt;
-		while (!CaughtUp())
+		while (!PlaybackFinished() && !CaughtUp())
 		{
 			if (NextEvent().Type == Event::TimePassed)
 			{
@@ -89,11 +88,6 @@ void EventPlayer::Update(float dt)
 			}
 
 			PlayNextEvent();
-			if (PlaybackFinished())
-			{
-				_PlaybackFinished = true;
-				return;
-			}
 		}
 		break;
 

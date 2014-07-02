@@ -19,6 +19,16 @@ CBApp::~CBApp()
 {
 }
 
+CBApp::Mode CBApp::GetMode()
+{
+	return CurrentMode;
+}
+
+void CBApp::SetMode(Mode newMode)
+{
+	CurrentMode = newMode;
+}
+
 void CBApp::Initialize()
 {
     SoundPlayer.loadSound("now.mp3", true);
@@ -164,6 +174,15 @@ void CBApp::Pause()
 {
 	SoundPlayer.setPaused(true);
 	SetState(Paused);
+	PauseAllLayers();
+}
+
+void CBApp::PauseAllLayers()
+{
+	for(int i = 0; i < Layers.size(); i++)
+	{
+		Layers[i]->Pause();
+	}
 }
 
 void CBApp::SetPosition(float time)

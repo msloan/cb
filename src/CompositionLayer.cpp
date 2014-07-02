@@ -53,9 +53,8 @@ void CompositionLayer::Reset()
 	Visuals->Clear();
 }
 
-void CompositionLayer::Stop()
+void CompositionLayer::Pause()
 {
-	Visuals->Clear();
 	Player.Pause();
 }
 

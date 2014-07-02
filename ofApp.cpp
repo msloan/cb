@@ -61,6 +61,14 @@ void ofApp::keyPressed(int key){
 		case 'l':
 			App->SaveLayer();
 			break;
+
+		case 'm':
+			if (App->GetMode() == CBApp::mode_Play)
+			{
+				App->SetMode(CBApp::mode_Edit);
+			}
+			App->SetMode(CBApp::mode_Play);
+			break;
 	}
 	
 }
