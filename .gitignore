@@ -24,7 +24,6 @@
 *.opensdf
 *.sdf
 *.suo
-*.filters
 *.bsc
 *.pdb
 *.ilk

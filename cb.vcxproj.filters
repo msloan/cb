@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\CBApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CircleVisualization.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CompositionLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EventPlayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ofApp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasing.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingBack.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingBounce.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingCirc.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingCubic.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingElastic.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingExpo.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingLinear.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingQuad.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingQuart.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingQuint.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\Easings\ofxEasingSine.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="tween\ofxTween.cpp">
+      <Filter>tween</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SoundCloudClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VisualizationLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\PCH.h" />
+    <ClInclude Include="src\CBApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CircleVisualization.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CompositionLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Event.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\EventPlayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ofApp.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasing.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingBack.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingBounce.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingCirc.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingCubic.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingElastic.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingExpo.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingLinear.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingQuad.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingQuart.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingQuint.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\Easings\ofxEasingSine.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="tween\ofxTween.h">
+      <Filter>tween</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PooledFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SoundCloudClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VisualizationLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="tween">
+      <UniqueIdentifier>{196f24d7-8472-4884-90a5-82f06180f60a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{0bb2c91e-24bd-4521-91af-f570992afd6c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tween\Easings\easing_terms_of_use.html">
+      <Filter>tween</Filter>
+    </None>
+  </ItemGroup>
+</Project>
