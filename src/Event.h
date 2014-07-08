@@ -8,6 +8,12 @@ struct Event
 		TouchUp,
 		TouchMove,
 		
+		GestureRecognized,
+
+		GestureBegin,
+		GestureChanged,
+		GestureEnd,
+
 		TimePassed
 	} Type;
 

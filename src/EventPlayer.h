@@ -10,7 +10,6 @@ public:
 
 class EventPlayer
 {
-public:
 private:
 	std::vector<Event> Events;
 

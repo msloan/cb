@@ -84,7 +84,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 	touchMoveEvent.Value.Touch.x = (float)x / ofGetWidth();
 	touchMoveEvent.Value.Touch.y = (float)y / ofGetHeight();
 	touchMoveEvent.Value.Touch.Pressure = 15.f;
-
+	std::cout<<"drag";
 	App->PostEvent(touchMoveEvent);
 }
 
@@ -97,7 +97,7 @@ void ofApp::mousePressed(int x, int y, int button)
 	touchEvent.Value.Touch.x = (float)x / ofGetWidth(),
 	touchEvent.Value.Touch.y = (float)y / ofGetHeight();
 	touchEvent.Value.Touch.Pressure = 15.f;
-
+	std::cout<<"pressed";
 	App->PostEvent(touchEvent);
 }
 
