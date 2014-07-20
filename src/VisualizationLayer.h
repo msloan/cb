@@ -17,20 +17,15 @@ class DragVisualUpdater : public IDragGestureConsumer
 
 class VisualizationLayer : public IEventReceiver, public IGestureConsumer
 {
-	PooledFactory<CircleVisualization> CircleFactory;
+	PooledFactory<CircleVisualization>* CircleFactory;
 	std::vector<CircleVisualization*> Circles;
 
 	ofVec2f CanvasDimensions;
 
-	SingleTapGestureRecognizer TapRecognizer;
-
-
 public:
 	VisualizationLayer(
-			PooledFactory<CircleVisualization>& circleFactory,
+			PooledFactory<CircleVisualization>* circleFactory,
 			const ofVec2f& screenDimensions);
-
-	~VisualizationLayer();
 
 	void OnEvent(const Event& Event);
 	void Update(float dt);

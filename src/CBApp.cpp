@@ -4,8 +4,6 @@
 #include "ofMain.h"
 
 
-
-
 #define MAX_CIRCLE_VISUALIZATIONS 1000
 #define MAX_LAYERS 100
 
@@ -145,7 +143,7 @@ void CBApp::CreateNewLayer()
 	assert(Layers.size() < MAX_LAYERS);
 
 	CompositionLayer* layer = new CompositionLayer(
-		CircleFactory,
+		&CircleFactory,
 		ofVec2f((float)ofGetWidth(), (float)ofGetHeight()));
 
 	Layers.push_back(ofPtr<CompositionLayer>(layer));

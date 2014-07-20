@@ -29,7 +29,7 @@ private:
 
 public:
 	CompositionLayer(
-			PooledFactory<CircleVisualization>& CircleFactory,
+			PooledFactory<CircleVisualization>* circleFactory,
 			ofVec2f screenDimensions);
 
 	~CompositionLayer();

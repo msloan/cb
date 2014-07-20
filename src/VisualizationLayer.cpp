@@ -3,27 +3,23 @@
 
 #define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
+//---------------------------------------------------------------------
 VisualizationLayer::VisualizationLayer(
-		PooledFactory<CircleVisualization>& circleFactory,
+		PooledFactory<CircleVisualization>* circleFactory,
 		const ofVec2f& canvasDimensions)
-	: CircleFactory(circleFactory), CanvasDimensions(canvasDimensions)
+	:CanvasDimensions(canvasDimensions)
 {
-	TapRecognizer.Initialize(this);
+	CircleFactory = circleFactory;
 }
 
-
-VisualizationLayer::~VisualizationLayer()
-{
-}
-
-
+//---------------------------------------------------------------------
 void VisualizationLayer::OnSingleTap(ofVec2f position, float pressure)
 {
 	ofVec2f modifiedPosition(
 				position.x * CanvasDimensions.x,
 				position.y * CanvasDimensions.y);
 
-	CircleVisualization* newCircle = CircleFactory.Create();
+	CircleVisualization* newCircle = CircleFactory->Create();
 	newCircle->Initialize(
 			modifiedPosition,
 			CIRCLE_RADIUS_MODIFIER * CanvasDimensions.y * pressure,
@@ -33,6 +29,7 @@ void VisualizationLayer::OnSingleTap(ofVec2f position, float pressure)
 	Circles.push_back(newCircle);
 }
 
+//---------------------------------------------------------------------
 void VisualizationLayer::OnEvent(const Event& event)
 {
 	if (event.Type == Event::TimePassed)
@@ -41,6 +38,7 @@ void VisualizationLayer::OnEvent(const Event& event)
 	}
 }
 
+//---------------------------------------------------------------------
 void VisualizationLayer::Update(float dt)
 {
 	for (int i = 0; i < Circles.size(); i++)
@@ -58,6 +56,7 @@ void VisualizationLayer::Update(float dt)
 	}
 }
 
+//---------------------------------------------------------------------
 void VisualizationLayer::Draw()
 {
 	for (int i = 0; i < Circles.size(); i++)
@@ -66,6 +65,7 @@ void VisualizationLayer::Draw()
 	}
 }
 
+//---------------------------------------------------------------------
 void VisualizationLayer::Clear()
 {
 	for (int i = 0; i < Circles.size(); i++)

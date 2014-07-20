@@ -2,9 +2,9 @@
 
 
 CompositionLayer::CompositionLayer(
-		PooledFactory<CircleVisualization>& CircleFactory,
+		PooledFactory<CircleVisualization>* circleFactory,
 		ofVec2f screenDimensions) 
-	: Visuals(new VisualizationLayer(CircleFactory, screenDimensions))
+	: Visuals(new VisualizationLayer(circleFactory, screenDimensions))
 {
 	Gestures.Initialize(Visuals.get());
 

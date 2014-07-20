@@ -23,7 +23,7 @@ void SingleTapGestureRecognizer::RemoveMonitoredTouch(Touch touch)
 	assert(0);
 }
 
-MonitoredTouch* SingleTapGestureRecognizer::FindMonitoredTouch(Touch touch)
+SingleTapGestureRecognizer::MonitoredTouch* SingleTapGestureRecognizer::FindMonitoredTouch(Touch touch)
 {
 	for (int i = 0; i < MonitoredTouches.size(); i++)
 	{

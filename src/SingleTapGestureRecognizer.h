@@ -3,15 +3,15 @@
 #include <vector>
 
 
-class MonitoredTouch
-{
-public:
-	int 	Id;
-	float 	TouchDownTime;
-};
-
 class SingleTapGestureRecognizer : public IGestureRecognizer
 {
+	class MonitoredTouch
+	{
+	public:
+		int 	Id;
+		float 	TouchDownTime;
+	};
+
 
 	IGestureConsumer* 	Consumer;
 
