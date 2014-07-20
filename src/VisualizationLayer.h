@@ -1,19 +1,11 @@
 #pragma once
-#include "CircleVisualization.h"
-#include "EventPlayer.h"
-#include "SingleTapGestureRecognizer.h"
-#include "EventPlayer.h"
+#include <vector>
+#include "PooledFactory.h"
+#include "IEventReceiver.h"
+#include "IGestureConsumer.h"
 
-class DragVisualUpdater : public IDragGestureConsumer
-{
-	virtual void OnUpdateDrag(ofVec2f position, float pressure)
-	{
-	}
+class CircleVisualization;
 
-	virtual void OnEndDrag(ofVec2f position, float pressure)
-	{
-	}
-};
 
 class VisualizationLayer : public IEventReceiver, public IGestureConsumer
 {
@@ -33,10 +25,7 @@ public:
 
 	virtual void OnSingleTap(ofVec2f position, float pressure);
 
-	virtual IDragGestureConsumer* OnStartDrag(ofVec2f position, float pressure)
-	{
-		return new DragVisualUpdater();
-	}
+	virtual IDragGestureConsumer* OnStartDrag(ofVec2f position, float pressure);
 
 
 

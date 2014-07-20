@@ -13,12 +13,20 @@
     <ClCompile Include="src\EventPlayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\GestureRecognizer.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="ofApp.cpp">
+    <ClCompile Include="src\SingleTapGestureRecognizer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\SoundCloudClient.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VisualizationLayer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ofApp.cpp" />
     <ClCompile Include="tween\Easings\ofxEasing.cpp">
       <Filter>tween</Filter>
     </ClCompile>
@@ -58,21 +66,16 @@
     <ClCompile Include="tween\ofxTween.cpp">
       <Filter>tween</Filter>
     </ClCompile>
-    <ClCompile Include="src\SoundCloudClient.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\VisualizationLayer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SingleTapGestureRecognizer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GestureRecognizer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\PCH.h" />
+    <Filter Include="src">
+      <UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tween">
+      <UniqueIdentifier>{32eb86b8-5b80-462f-a3ec-21ba3102f7b2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="src\CBApp.h">
       <Filter>src</Filter>
     </ClInclude>
@@ -88,9 +91,26 @@
     <ClInclude Include="src\EventPlayer.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="ofApp.h">
+    <ClInclude Include="src\GestureRecognizer.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\IGestureRecognizer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PooledFactory.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SingleTapGestureRecognizer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SoundCloudClient.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VisualizationLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="ofApp.h" />
+    <ClInclude Include="src\PCH.h" />
     <ClInclude Include="tween\Easings\ofxEasing.h">
       <Filter>tween</Filter>
     </ClInclude>
@@ -130,36 +150,14 @@
     <ClInclude Include="tween\ofxTween.h">
       <Filter>tween</Filter>
     </ClInclude>
-    <ClInclude Include="src\PooledFactory.h">
+    <ClInclude Include="src\IEventReceiver.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\SoundCloudClient.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\VisualizationLayer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\SingleTapGestureRecognizer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GestureRecognizer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\IGestureRecognizer.h">
+    <ClInclude Include="src\IGestureConsumer.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="tween">
-      <UniqueIdentifier>{196f24d7-8472-4884-90a5-82f06180f60a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{0bb2c91e-24bd-4521-91af-f570992afd6c}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="tween\Easings\easing_terms_of_use.html">
-      <Filter>tween</Filter>
-    </None>
+    <None Include="tween\Easings\easing_terms_of_use.html" />
   </ItemGroup>
 </Project>

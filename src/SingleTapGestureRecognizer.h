@@ -1,5 +1,6 @@
 #pragma once
 #include "IGestureRecognizer.h"
+#include "IGestureConsumer.h"
 #include <vector>
 
 

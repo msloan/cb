@@ -2,7 +2,12 @@
 #include "ofBaseTypes.h"
 #include "Event.h"
 #include "EventPlayer.h"
-#include "IGestureRecognizer.h"
+
+#include "IEventReceiver.h"
+
+class IGestureConsumer;
+class IGestureRecognizer;
+class Touch;
 
 class GestureRecognizer : public IEventReceiver
 {

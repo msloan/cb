@@ -32,9 +32,9 @@ void CircleVisualization::Initialize(
 	_Done = false;
 }
 
-void CircleVisualization::Drag(float x, float y)
+void CircleVisualization::OnUpdateDrag(ofVec2f position, float pressure)
 {
-	Position = ofVec2f(x,y);
+	Position = position;
 	CurrentTime = 0;
 }
 

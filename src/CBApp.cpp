@@ -1,8 +1,10 @@
 #include "CBApp.h"
-#include "PCH.h"
-#include <vector>
-#include "ofMain.h"
 
+#include <vector>
+
+#include "ofMain.h"
+#include "Event.h"
+#include "CompositionLayer.h"
 
 #define MAX_CIRCLE_VISUALIZATIONS 1000
 #define MAX_LAYERS 100

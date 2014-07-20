@@ -1,5 +1,6 @@
-#include "PCH.h"
 #include "VisualizationLayer.h"
+#include "CircleVisualization.h"
+#include "Event.h"
 
 #define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
@@ -10,6 +11,24 @@ VisualizationLayer::VisualizationLayer(
 	:CanvasDimensions(canvasDimensions)
 {
 	CircleFactory = circleFactory;
+}
+
+//---------------------------------------------------------------------
+IDragGestureConsumer* VisualizationLayer::OnStartDrag(ofVec2f position, float pressure)
+{
+	ofVec2f modifiedPosition(
+				position.x * CanvasDimensions.x,
+				position.y * CanvasDimensions.y);
+
+	CircleVisualization* newCircle = CircleFactory->Create();
+	newCircle->Initialize(
+			modifiedPosition,
+			CIRCLE_RADIUS_MODIFIER * CanvasDimensions.y * pressure,
+			ofColor::yellow,
+			0.0f);
+
+	Circles.push_back(newCircle);
+	return newCircle;
 }
 
 //---------------------------------------------------------------------

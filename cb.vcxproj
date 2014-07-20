@@ -131,6 +131,8 @@
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventPlayer.h" />
     <ClInclude Include="src\GestureRecognizer.h" />
+    <ClInclude Include="src\IEventReceiver.h" />
+    <ClInclude Include="src\IGestureConsumer.h" />
     <ClInclude Include="src\IGestureRecognizer.h" />
     <ClInclude Include="src\PCH.h" />
     <ClInclude Include="src\PooledFactory.h" />

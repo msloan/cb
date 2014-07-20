@@ -1,10 +1,12 @@
 #pragma once
-#include "PooledFactory.h"
 #include <vector>
-#include "CompositionLayer.h"
+
+#include "PooledFactory.h"
 #include "ofSoundPlayer.h"
+#include "CircleVisualization.h"
 
-
+class CompositionLayer;
+struct Event;
 
 class CBApp
 {

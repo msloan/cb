@@ -1,5 +1,5 @@
-#include "PCH.h"
 #include "EventPlayer.h"
+#include "IEventReceiver.h"
 
 EventPlayer::EventPlayer()
 {
@@ -56,7 +56,7 @@ void EventPlayer::SetPosition(float time)
 	UnconsumedTime = -(time - accumulatedTime);
 }
 
-void EventPlayer::Replay(ofPtr<IEventReceiver> receiver)
+void EventPlayer::Replay(IEventReceiver* receiver)
 {
 	// TODO
 }

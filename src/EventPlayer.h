@@ -2,11 +2,7 @@
 #include <vector>
 #include "Event.h"
 
-class IEventReceiver
-{
-public:
-	virtual void OnEvent(const Event& event) = 0;
-};
+class IEventReceiver;
 
 class EventPlayer
 {
@@ -36,7 +32,7 @@ public:
 
 	void SetPosition(float time);
 	void Play(float dt);
-	void Replay(ofPtr<IEventReceiver> receiver);
+	void Replay(IEventReceiver* receiver);
 	void Truncate(float time);
 };
 

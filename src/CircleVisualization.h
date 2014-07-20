@@ -3,7 +3,9 @@
 #include "of3dPrimitives.h"
 #include "PooledFactory.h"
 #include "../tween/ofxTween.h"
-class CircleVisualization : public Poolable
+#include "IGestureConsumer.h"
+
+class CircleVisualization : public Poolable, public IDragGestureConsumer
 {
 
 	bool	_Done;
@@ -35,9 +37,10 @@ public:
 
 	bool Done()			{ return _Done; }
 
-	void CircleVisualization::Drag(float x, float y);
-
 	void Update(float dt);
 	void Draw();
+
+	virtual void OnUpdateDrag(ofVec2f position, float pressure);
+	virtual void OnEndDrag(ofVec2f position, float pressure) {}
 };
 

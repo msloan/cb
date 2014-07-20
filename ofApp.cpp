@@ -1,4 +1,5 @@
-#include "ofApp.h"
+#include "ofApp.h" 
+#include "Event.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){

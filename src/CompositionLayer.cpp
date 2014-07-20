@@ -36,7 +36,7 @@ void CompositionLayer::Truncate(float time)
 void CompositionLayer::Replay()
 {
 	Visuals->Clear();
-	Player.Replay(Visuals);
+	Player.Replay(Visuals.get());
 }
 
 void CompositionLayer::SetPosition(float time)
