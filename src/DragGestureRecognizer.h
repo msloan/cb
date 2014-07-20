@@ -1,21 +1,26 @@
 #pragma once
-#include "IGestureRecognizer.h"
-#include "IGestureConsumer.h"
 #include <vector>
 
-
-class SingleTapGestureRecognizer : public IGestureRecognizer
+namespace
 {
-	class MonitoredTouch
+	struct ActiveDrag
 	{
-	public:
-		int 	Id;
-		float 	TouchDownTime;
+		int Id;
+		IDragGestureConsumer* Consumer;
 	};
 
+	struct MonitoredTouch
+	{
+		int Id;
+	};
+}
 
+class DragGestureRecognizer : public IGestureRecognizer
+{
 	IGestureConsumer* 	Consumer;
+	TouchManager* 		Touch;
 
+	std::vector<ActiveDrag> ActiveDrags;
 	std::vector<MonitoredTouch> 	MonitoredTouches;
 
 	void RemoveMonitoredTouch(Touch touch);
@@ -23,7 +28,8 @@ class SingleTapGestureRecognizer : public IGestureRecognizer
 
 public:
 	virtual void Initialize(
-			IGestureConsumer* consumer);
+			IGestureConsumer* consumer,
+			std::vector<Touch>* touches);
 
 	virtual void OnTouchDown(Touch touch, float currentTime);
 	virtual void OnTouchUp(Touch touch, float currentTime);
