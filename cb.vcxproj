@@ -105,6 +105,7 @@
     <ClCompile Include="src\CircleVisualization.cpp" />
     <ClCompile Include="src\CompositionLayer.cpp" />
     <ClCompile Include="src\EventPlayer.cpp" />
+    <ClCompile Include="src\GestureRecognizer.cpp" />
     <ClCompile Include="src\SingleTapGestureRecognizer.cpp" />
     <ClCompile Include="src\SoundCloudClient.cpp" />
     <ClCompile Include="src\VisualizationLayer.cpp" />
@@ -129,7 +130,7 @@
     <ClInclude Include="src\CompositionLayer.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventPlayer.h" />
-    <ClInclude Include="src\GestureManager.h" />
+    <ClInclude Include="src\GestureRecognizer.h" />
     <ClInclude Include="src\IGestureRecognizer.h" />
     <ClInclude Include="src\PCH.h" />
     <ClInclude Include="src\PooledFactory.h" />

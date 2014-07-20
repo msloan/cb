@@ -1,6 +1,5 @@
 #include "PCH.h"
 #include "VisualizationLayer.h"
-#include "GestureManager.h"
 
 #define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
@@ -36,29 +35,7 @@ void VisualizationLayer::OnSingleTap(ofVec2f position, float pressure)
 
 void VisualizationLayer::OnEvent(const Event& event)
 {
-	if (event.Type == Event::TouchDown)
-	{
-		Touch touch;
-		touch.Id = event.Value.Touch.Id;
-		touch.Position = ofVec2f(
-				event.Value.Touch.x,
-				event.Value.Touch.y);
-		touch.Pressure = event.Value.Touch.Pressure;
-
-		TapRecognizer.OnTouchDown(touch, 0.f);
-	}
-	else if (event.Type == Event::TouchUp)
-	{
-		Touch touch;
-		touch.Id = event.Value.Touch.Id;
-		touch.Position = ofVec2f(
-				event.Value.Touch.x,
-				event.Value.Touch.y);
-		touch.Pressure = event.Value.Touch.Pressure;
-
-		TapRecognizer.OnTouchUp(touch, 0.f);
-	}
-	else if (event.Type == Event::TimePassed)
+	if (event.Type == Event::TimePassed)
 	{
 		Update(event.Value.TimePassed.DeltaTime);
 	}

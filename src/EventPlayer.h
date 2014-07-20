@@ -10,15 +10,14 @@ public:
 
 class EventPlayer
 {
-public:
-private:
 	std::vector<Event> Events;
 
 	float	UnconsumedTime;
 	int		NextEventIndex;
 
-	ofPtr<IEventReceiver> PlaybackReceiver;
+	std::vector<IEventReceiver*> Receivers;
 
+	void	PlayEvent(const Event& event);
 	void	PlayNextEvent();
 	Event&	NextEvent();
 	bool	CaughtUp();
@@ -31,7 +30,7 @@ public:
 
 	void Clear();
 
-	void SetReceiver(ofPtr<IEventReceiver> receiver);
+	void RegisterReceiver(IEventReceiver* receiver);
 
 	void Record(const Event& newEvent);
 

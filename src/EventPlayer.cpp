@@ -66,9 +66,9 @@ void EventPlayer::Truncate(float time)
 	// TODO
 }
 
-void EventPlayer::SetReceiver(ofPtr<IEventReceiver> receiver) 
+void EventPlayer::RegisterReceiver(IEventReceiver* receiver) 
 { 
-	PlaybackReceiver = receiver; 
+	Receivers.push_back(receiver);
 }
 
 void EventPlayer::Play(float dt)
@@ -99,12 +99,20 @@ void EventPlayer::SendTimePassedEvent(float dt)
 	Event timePassed;
 	timePassed.Type = Event::TimePassed;
 	timePassed.Value.TimePassed.DeltaTime = dt;
-	PlaybackReceiver->OnEvent(timePassed);
+	PlayEvent(timePassed);
+}
+
+void EventPlayer::PlayEvent(const Event& event)
+{
+	for (int i = 0; i < Receivers.size(); i++)
+	{
+		Receivers[i]->OnEvent(event);
+	}
 }
 
 void EventPlayer::PlayNextEvent()
 {
-	PlaybackReceiver->OnEvent(Events[NextEventIndex]);
+	PlayEvent(Events[NextEventIndex]);
 	NextEventIndex++;
 }
 

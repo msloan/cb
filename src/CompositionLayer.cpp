@@ -1,10 +1,15 @@
 #include "CompositionLayer.h"
 
+
 CompositionLayer::CompositionLayer(
 		PooledFactory<CircleVisualization>& CircleFactory,
-		ofVec2f screenDimensions)
-: Visuals(new VisualizationLayer(CircleFactory, screenDimensions))
+		ofVec2f screenDimensions) 
+	: Visuals(new VisualizationLayer(CircleFactory, screenDimensions))
 {
+	Gestures.Initialize(Visuals.get());
+
+	Player.RegisterReceiver(Visuals.get());
+	Player.RegisterReceiver(&Gestures);
 }
 
 CompositionLayer::~CompositionLayer()
@@ -43,14 +48,16 @@ void CompositionLayer::SetPosition(float time)
 
 void CompositionLayer::Play()
 {
-	Player.SetReceiver(Visuals);
 	SetState(Playing);
 }
 
 void CompositionLayer::Record(const Event& event)
 {
 	Player.Record(event);
+
+	Gestures.OnEvent(event);
 	Visuals->OnEvent(event);
+
 	SetState(Recording);
 }
 

@@ -1,4 +1,6 @@
 #pragma once
+#include "ofBaseTypes.h"
+
 class Touch
 {
 public:
@@ -16,3 +18,18 @@ public:
 	virtual void OnTouchMoved(Touch touch, float currentTime) = 0;
 	virtual void Update(float secondsPassed) = 0;
 };
+
+class IDragGestureConsumer
+{
+public:
+	virtual void OnUpdateDrag(ofVec2f position, float pressure) = 0;
+	virtual void OnEndDrag(ofVec2f position, float pressure) = 0;
+};
+
+class IGestureConsumer
+{
+public:
+	virtual void OnSingleTap(ofVec2f position, float pressure) = 0;
+	virtual IDragGestureConsumer* 	OnStartDrag(ofVec2f position, float pressure) = 0;
+};
+

@@ -2,6 +2,7 @@
 #include "VisualizationLayer.h"
 #include "EventPlayer.h"
 #include "ofMain.h"
+#include "GestureRecognizer.h"
 
 class CompositionLayer
 {
@@ -17,6 +18,7 @@ public:
 private:
 
 	ofPtr<VisualizationLayer> 	Visuals;
+	GestureRecognizer 			Gestures;
 	EventPlayer 				Player;	
 	State 						CurrentState;
 

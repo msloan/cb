@@ -2,8 +2,20 @@
 #include "CircleVisualization.h"
 #include "EventPlayer.h"
 #include "SingleTapGestureRecognizer.h"
+#include "EventPlayer.h"
 
-class VisualizationLayer : public IEventReceiver, public ISingleTapVisualizer
+class DragVisualUpdater : public IDragGestureConsumer
+{
+	virtual void OnUpdateDrag(ofVec2f position, float pressure)
+	{
+	}
+
+	virtual void OnEndDrag(ofVec2f position, float pressure)
+	{
+	}
+};
+
+class VisualizationLayer : public IEventReceiver, public IGestureConsumer
 {
 	PooledFactory<CircleVisualization> CircleFactory;
 	std::vector<CircleVisualization*> Circles;
@@ -24,7 +36,14 @@ public:
 	void Update(float dt);
 	void Draw();
 
-	void OnSingleTap(ofVec2f position, float pressure);
+	virtual void OnSingleTap(ofVec2f position, float pressure);
+
+	virtual IDragGestureConsumer* OnStartDrag(ofVec2f position, float pressure)
+	{
+		return new DragVisualUpdater();
+	}
+
+
 
 	void Clear();
 };

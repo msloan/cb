@@ -1,6 +1,6 @@
 #pragma once
 #include "IGestureRecognizer.h"
-#include "GestureManager.h"
+#include <vector>
 
 
 class MonitoredTouch
@@ -13,15 +13,15 @@ public:
 class SingleTapGestureRecognizer : public IGestureRecognizer
 {
 
-	ISingleTapVisualizer* 	Visualizer;
+	IGestureConsumer* 	Consumer;
 
-	vector<MonitoredTouch> 	MonitoredTouches;
+	std::vector<MonitoredTouch> 	MonitoredTouches;
 
 	void RemoveMonitoredTouch(Touch touch);
 	MonitoredTouch* FindMonitoredTouch(Touch touch);
 
 public:
-	virtual void Initialize(ISingleTapVisualizer* visualizer);
+	virtual void Initialize(IGestureConsumer* consumer);
 
 	virtual void OnTouchDown(Touch touch, float currentTime);
 	virtual void OnTouchUp(Touch touch, float currentTime);

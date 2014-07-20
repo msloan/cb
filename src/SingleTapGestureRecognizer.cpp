@@ -1,13 +1,12 @@
-#include "GestureManager.h"
 #include "SingleTapGestureRecognizer.h"
 #include <assert.h>
 
 #define MAX_MONITORED_TOUCHES 100
 #define ALLOWED_CONTACT_TIME 0.5f
 
-void SingleTapGestureRecognizer::Initialize(ISingleTapVisualizer* visualizer)
+void SingleTapGestureRecognizer::Initialize(IGestureConsumer* consumer)
 {
-	Visualizer = visualizer;
+	Consumer = consumer;
 	MonitoredTouches.reserve(MAX_MONITORED_TOUCHES);
 }
 
@@ -52,10 +51,8 @@ void SingleTapGestureRecognizer::OnTouchUp(Touch touch, float currentTime)
 
 	if (currentTime - monitored->TouchDownTime < ALLOWED_CONTACT_TIME)
 	{
-		Visualizer->OnSingleTap(touch.Position, touch.Pressure);
+		Consumer->OnSingleTap(touch.Position, touch.Pressure);
 	}
-	else
-	{
-		RemoveMonitoredTouch(touch);
-	}
+
+	RemoveMonitoredTouch(touch);
 }
