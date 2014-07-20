@@ -64,6 +64,9 @@
     <ClCompile Include="src\VisualizationLayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\SingleTapGestureRecognizer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\PCH.h" />
@@ -131,6 +134,15 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\VisualizationLayer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GestureManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IGestureRecognizer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SingleTapGestureRecognizer.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

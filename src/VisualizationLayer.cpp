@@ -1,5 +1,6 @@
 #include "PCH.h"
 #include "VisualizationLayer.h"
+#include "GestureManager.h"
 
 #define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
@@ -8,6 +9,7 @@ VisualizationLayer::VisualizationLayer(
 		const ofVec2f& canvasDimensions)
 	: CircleFactory(circleFactory), CanvasDimensions(canvasDimensions)
 {
+	TapRecognizer.Initialize(this);
 }
 
 
@@ -16,29 +18,45 @@ VisualizationLayer::~VisualizationLayer()
 }
 
 
+void VisualizationLayer::OnSingleTap(ofVec2f position, float pressure)
+{
+	ofVec2f modifiedPosition(
+				position.x * CanvasDimensions.x,
+				position.y * CanvasDimensions.y);
+
+	CircleVisualization* newCircle = CircleFactory.Create();
+	newCircle->Initialize(
+			modifiedPosition,
+			CIRCLE_RADIUS_MODIFIER * CanvasDimensions.y * pressure,
+			ofColor::yellow,
+			0.0f);
+
+	Circles.push_back(newCircle);
+}
+
 void VisualizationLayer::OnEvent(const Event& event)
 {
 	if (event.Type == Event::TouchDown)
 	{
-		ofVec2f position(
-				event.Value.Touch.x * CanvasDimensions.x,
-				event.Value.Touch.y * CanvasDimensions.y);
+		Touch touch;
+		touch.Id = event.Value.Touch.Id;
+		touch.Position = ofVec2f(
+				event.Value.Touch.x,
+				event.Value.Touch.y);
+		touch.Pressure = event.Value.Touch.Pressure;
 
-		CircleVisualization* newCircle = CircleFactory.Create();
-		newCircle->Initialize(
-			position,
-			CIRCLE_RADIUS_MODIFIER * CanvasDimensions.y * event.Value.Touch.Pressure,
-            ofColor::yellow,
-			0.0f);
-
-		Circles.push_back(newCircle);
+		TapRecognizer.OnTouchDown(touch, 0.f);
 	}
-	else if (event.Type == Event::TouchMove)
+	else if (event.Type == Event::TouchUp)
 	{
-		if(Circles.size() > 0)
-		{
-			Circles.back()->Drag(event.Value.Touch.x * CanvasDimensions.x ,event.Value.Touch.y * CanvasDimensions.y);
-		}
+		Touch touch;
+		touch.Id = event.Value.Touch.Id;
+		touch.Position = ofVec2f(
+				event.Value.Touch.x,
+				event.Value.Touch.y);
+		touch.Pressure = event.Value.Touch.Pressure;
+
+		TapRecognizer.OnTouchUp(touch, 0.f);
 	}
 	else if (event.Type == Event::TimePassed)
 	{

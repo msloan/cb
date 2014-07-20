@@ -25,6 +25,7 @@ private:
 	std::vector<ofPtr<CompositionLayer> > Layers;
     ofSoundPlayer SoundPlayer;
 
+
 	CompositionLayer& CurrentLayer() 	{ return *(Layers.back()); }
 	State CurrentState;
 	State PreviousState;
