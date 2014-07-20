@@ -33,6 +33,7 @@
 *.lastbuildstate
 *.log
 *.idb
+*.user
 obj/
 
 # xcode
