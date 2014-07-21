@@ -3,18 +3,21 @@
 #include "IGestureConsumer.h"
 #include <vector>
 
+class GestureRecognizer;
 
-class SingleTapGestureRecognizer : public IGestureRecognizer
+namespace
 {
-	class MonitoredTouch
+	struct MonitoredTouch
 	{
-	public:
 		int 	Id;
 		float 	TouchDownTime;
 	};
+}
 
-
+class SingleTapGestureRecognizer : public IGestureRecognizer
+{
 	IGestureConsumer* 	Consumer;
+	GestureRecognizer*	_GestureRecognizer;
 
 	std::vector<MonitoredTouch> 	MonitoredTouches;
 
@@ -22,7 +25,9 @@ class SingleTapGestureRecognizer : public IGestureRecognizer
 	MonitoredTouch* FindMonitoredTouch(Touch touch);
 
 public:
-	virtual void Initialize(IGestureConsumer* consumer);
+	virtual void Initialize(
+			GestureRecognizer* gestureRecognizer,
+			IGestureConsumer* consumer);
 
 	virtual void OnTouchDown(Touch touch, float currentTime);
 	virtual void OnTouchUp(Touch touch, float currentTime);

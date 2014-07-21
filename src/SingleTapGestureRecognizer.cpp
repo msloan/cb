@@ -1,15 +1,21 @@
 #include "SingleTapGestureRecognizer.h"
+#include "GestureRecognizer.h"
 #include <assert.h>
 
 #define MAX_MONITORED_TOUCHES 100
 #define ALLOWED_CONTACT_TIME 0.5f
 
-void SingleTapGestureRecognizer::Initialize(IGestureConsumer* consumer)
+//------------------------------------------------------------------------------------
+void SingleTapGestureRecognizer::Initialize(
+		GestureRecognizer* gestureRecognizer,
+		IGestureConsumer* consumer)
 {
 	Consumer = consumer;
+	_GestureRecognizer = gestureRecognizer;
 	MonitoredTouches.reserve(MAX_MONITORED_TOUCHES);
 }
 
+//------------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::RemoveMonitoredTouch(Touch touch)
 {
 	for (int i = 0; i < MonitoredTouches.size(); i++)
@@ -23,7 +29,8 @@ void SingleTapGestureRecognizer::RemoveMonitoredTouch(Touch touch)
 	assert(0);
 }
 
-SingleTapGestureRecognizer::MonitoredTouch* SingleTapGestureRecognizer::FindMonitoredTouch(Touch touch)
+//------------------------------------------------------------------------------------
+MonitoredTouch* SingleTapGestureRecognizer::FindMonitoredTouch(Touch touch)
 {
 	for (int i = 0; i < MonitoredTouches.size(); i++)
 	{
@@ -35,6 +42,7 @@ SingleTapGestureRecognizer::MonitoredTouch* SingleTapGestureRecognizer::FindMoni
 	return NULL;
 }
 
+//------------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::OnTouchDown(Touch touch, float currentTime)
 {
 	MonitoredTouch monitoredTouch;
@@ -43,14 +51,16 @@ void SingleTapGestureRecognizer::OnTouchDown(Touch touch, float currentTime)
 	MonitoredTouches.push_back(monitoredTouch);
 }
 
+//------------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::OnTouchUp(Touch touch, float currentTime)
 {
 	MonitoredTouch* monitored = FindMonitoredTouch(touch);
 
 	if (monitored == NULL) return;
 
-	if (currentTime - monitored->TouchDownTime < ALLOWED_CONTACT_TIME)
+	if (!touch.InUse && currentTime - monitored->TouchDownTime < ALLOWED_CONTACT_TIME)
 	{
+		_GestureRecognizer->SetTouchInUse(touch.Id, true);
 		Consumer->OnSingleTap(touch.Position, touch.Pressure);
 	}
 
