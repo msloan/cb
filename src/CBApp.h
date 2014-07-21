@@ -5,6 +5,7 @@
 #include "ofSoundPlayer.h"
 #include "CircleVisualization.h"
 
+
 class CompositionLayer;
 struct Event;
 

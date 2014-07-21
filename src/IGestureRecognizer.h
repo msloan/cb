@@ -7,6 +7,12 @@ public:
 	float 	Pressure;
 	ofVec2f Position;
 	float 	TimeDown;
+	bool 	InUse;
+
+	Touch()
+	{
+		InUse = false;
+	}
 };
 
 class IGestureRecognizer
