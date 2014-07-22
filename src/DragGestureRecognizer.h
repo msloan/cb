@@ -1,38 +1,37 @@
 #pragma once
 #include <vector>
+#include "ofVec2f.h"
+#include "IGestureRecognizer.h"
+#include "ofTypes.h"
 
-namespace
+class IDragGestureConsumer;
+class GestureRecognizer;
+class IGestureConsumer;
+
+class DragGestureRecognizer
 {
 	struct ActiveDrag
 	{
 		int Id;
-		IDragGestureConsumer* Consumer;
+		ofPtr<IDragGestureConsumer> Consumer;
 	};
 
-	struct MonitoredTouch
-	{
-		int Id;
-	};
-}
+	IGestureConsumer* 		Consumer;
+	GestureRecognizer* 		_GestureRecognizer;
 
-class DragGestureRecognizer : public IGestureRecognizer
-{
-	IGestureConsumer* 	Consumer;
-	TouchManager* 		Touch;
+	std::vector<ActiveDrag> 	ActiveDrags;
+	std::vector<Touch> 			MonitoredTouches;
 
-	std::vector<ActiveDrag> ActiveDrags;
-	std::vector<MonitoredTouch> 	MonitoredTouches;
+	void RemoveActiveDrag(ActiveDrag* drag);
 
-	void RemoveMonitoredTouch(Touch touch);
-	MonitoredTouch* FindMonitoredTouch(Touch touch);
+	ActiveDrag* FindActiveDrag(Touch touch);
 
 public:
-	virtual void Initialize(
-			IGestureConsumer* consumer,
-			std::vector<Touch>* touches);
+	void Initialize(IGestureConsumer* consumer);
+	bool IsMonitoringTouch(int id);
 
-	virtual void OnTouchDown(Touch touch, float currentTime);
-	virtual void OnTouchUp(Touch touch, float currentTime);
-	virtual void OnTouchMoved(Touch touch, float currentTime) {}
-	virtual void Update(float secondsPassed) {}
+	void OnTouchDown(const Touch& touch);
+	void OnTouchUp(const Touch& touch, float currentTime);
+	void OnTouchMoved(const Touch& touch, float currentTime);
+	void Update(float secondsPassed){}
 };

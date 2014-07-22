@@ -1,5 +1,6 @@
 #include "GestureRecognizer.h"
 #include "SingleTapGestureRecognizer.h"
+#include "DragGestureRecognizer.h"
 #include <assert.h>
 
 #define MAX_TOUCHES 50
@@ -7,11 +8,8 @@
 //------------------------------------------------------------------------------------
 void GestureRecognizer::Initialize(IGestureConsumer* consumer)
 {
-	SingleTapGestureRecognizer* singleTap = new SingleTapGestureRecognizer();
-	singleTap->Initialize(this, consumer);
-
-	Touches.reserve(MAX_TOUCHES);
-	Recognizers.push_back(ofPtr<IGestureRecognizer>(singleTap));
+	TapRecognizer.Initialize(consumer);
+	DragRecognizer.Initialize(consumer);
 }
 
 //------------------------------------------------------------------------------------
@@ -23,6 +21,7 @@ void GestureRecognizer::OnEvent(const Event& event)
 			event.Value.Touch.x,
 			event.Value.Touch.y);
 	touch.Pressure = event.Value.Touch.Pressure;
+	touch.TimeDown = ofGetElapsedTimef();
 
 	if (event.Type == Event::TouchDown)
 	{
@@ -36,98 +35,59 @@ void GestureRecognizer::OnEvent(const Event& event)
 	{
 		OnTouchMoved(touch);
 	}
+	else if (event.Type == Event::TimePassed)
+	{
+		OnUpdate(event.Value.TimePassed.DeltaTime);
+	}
 }
 
 //------------------------------------------------------------------------------------
 void GestureRecognizer::OnTouchMoved(const Touch& touch)
 {
-	NotifyTouchMoved(touch, ofGetElapsedTimef());
+	if (TapRecognizer.IsMonitoringTouch(touch.Id))
+	{
+		TapRecognizer.OnTouchMoved(touch, ofGetElapsedTimef());
+	}
+	else if (DragRecognizer.IsMonitoringTouch(touch.Id))
+	{
+		DragRecognizer.OnTouchMoved(touch, ofGetElapsedTimef());
+	}
+	else
+	{
+		DragRecognizer.OnTouchDown(touch);
+	}
 }
 
 //------------------------------------------------------------------------------------
 void GestureRecognizer::OnTouchDown(const Touch& touch)
 {
-	Touches.push_back(touch);
-	NotifyTouchDown(touch, ofGetElapsedTimef());
+	TapRecognizer.OnTouchDown(touch);
 }
 
 //------------------------------------------------------------------------------------
 void GestureRecognizer::OnTouchUp(const Touch& touch)
 {
-	NotifyTouchUp(touch, ofGetElapsedTimef());
-	RemoveTouch(touch);
-}
-
-//------------------------------------------------------------------------------------
-void GestureRecognizer::NotifyTouchDown(Touch touch, float currentTime)
-{
-	for (int i = 0; i < Recognizers.size(); i++)
+	if (TapRecognizer.IsMonitoringTouch(touch.Id))
 	{
-		Recognizers[i]->OnTouchDown(touch, currentTime);
+		TapRecognizer.OnTouchUp(touch, ofGetElapsedTimef());
+	}
+	else 
+	{
+		DragRecognizer.OnTouchUp(touch, ofGetElapsedTimef());
 	}
 }
 
 //------------------------------------------------------------------------------------
-void GestureRecognizer::NotifyTouchUp(Touch touch, float currentTime)
+void GestureRecognizer::OnUpdate(float secondsPassed)
 {
-	for (int i = 0; i < Recognizers.size(); i++)
+	Touch canceledTouches[MAX_MONITORED_TOUCHES];
+	int canceledTouchesCount;
+
+	TapRecognizer.Update(ofGetElapsedTimef(), &canceledTouches[0], &canceledTouchesCount);
+
+	for (int i = 0; i < canceledTouchesCount; i++)
 	{
-		Recognizers[i]->OnTouchUp(touch, currentTime);
+		Touch& canceledTouch = canceledTouches[i];
+		DragRecognizer.OnTouchDown(canceledTouch);
 	}
 }
-
-//------------------------------------------------------------------------------------
-void GestureRecognizer::RemoveTouch(Touch touch)
-{
-	for (int i = 0; i < Touches.size(); i++)
-	{
-		if (Touches[i].Id == touch.Id) 
-		{
-			Touches.erase(Touches.begin() + i);
-			return;
-		}
-	}
-	assert(0);
-}
-
-//------------------------------------------------------------------------------------
-void GestureRecognizer::NotifyTouchMoved(Touch touch, float currentTime)
-{
-	for (int i = 0; i < Recognizers.size(); i++)
-	{
-		Recognizers[i]->OnTouchMoved(touch, currentTime);
-	}
-}
-
-//------------------------------------------------------------------------------------
-void GestureRecognizer::NotifyUpdate(float secondsPassed)
-{
-	for (int i = 0; i < Recognizers.size(); i++)
-	{
-		Recognizers[i]->Update(secondsPassed);
-	}
-}
-
-//------------------------------------------------------------------------------------
-Touch* GestureRecognizer::FindTouch(int id)
-{
-	for (int i = 0; i < Touches.size(); i++)
-	{
-		if (Touches[i].Id == id)
-		{
-			return &Touches[i];
-		}
-	}
-	assert(0);
-	return NULL;
-}
-//------------------------------------------------------------------------------------
-void GestureRecognizer::SetTouchInUse(int id, bool inUse)
-{
-	Touch* touch = FindTouch(id);
-
-	assert(inUse != touch->InUse);
-
-	touch->InUse = inUse;
-}
-

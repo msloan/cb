@@ -82,7 +82,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 	Event touchMoveEvent;
 	touchMoveEvent.Type = Event::Type::TouchMove;
-	touchMoveEvent.Value.Touch.Id = id++;
+	touchMoveEvent.Value.Touch.Id = id;
 	touchMoveEvent.Value.Touch.x = (float)x / ofGetWidth();
 	touchMoveEvent.Value.Touch.y = (float)y / ofGetHeight();
 	touchMoveEvent.Value.Touch.Pressure = 15.f;
@@ -95,7 +95,7 @@ void ofApp::mousePressed(int x, int y, int button)
 {
 	Event touchEvent;
 	touchEvent.Type = Event::Type::TouchDown;
-	touchEvent.Value.Touch.Id = button;
+	touchEvent.Value.Touch.Id = id;
 	touchEvent.Value.Touch.x = (float)x / ofGetWidth(),
 	touchEvent.Value.Touch.y = (float)y / ofGetHeight();
 	touchEvent.Value.Touch.Pressure = 15.f;
@@ -108,7 +108,7 @@ void ofApp::mouseReleased(int x, int y, int button)
 {
 	Event touchEvent;
 	touchEvent.Type = Event::Type::TouchUp;
-	touchEvent.Value.Touch.Id = button;
+	touchEvent.Value.Touch.Id = id++;
 	touchEvent.Value.Touch.x = (float)x / ofGetWidth(),
 	touchEvent.Value.Touch.y = (float)y / ofGetHeight();
 	touchEvent.Value.Touch.Pressure = 15.f;

@@ -40,7 +40,7 @@ public:
 	void Update(float dt);
 	void Draw();
 
-	virtual void OnUpdateDrag(ofVec2f position, float pressure);
-	virtual void OnEndDrag(ofVec2f position, float pressure) {}
+	virtual void UpdateDrag(ofVec2f position, float pressure);
+	virtual void EndDrag(ofVec2f position, float pressure) {}
 };
 

@@ -25,7 +25,7 @@ public:
 
 	virtual void OnSingleTap(ofVec2f position, float pressure);
 
-	virtual IDragGestureConsumer* OnStartDrag(ofVec2f position, float pressure);
+	virtual ofPtr<IDragGestureConsumer> OnStartDrag(ofVec2f position, float pressure);
 
 
 

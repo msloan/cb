@@ -104,6 +104,7 @@
     <ClCompile Include="src\CBApp.cpp" />
     <ClCompile Include="src\CircleVisualization.cpp" />
     <ClCompile Include="src\CompositionLayer.cpp" />
+    <ClCompile Include="src\DragGestureRecognizer.cpp" />
     <ClCompile Include="src\EventPlayer.cpp" />
     <ClCompile Include="src\GestureRecognizer.cpp" />
     <ClCompile Include="src\SingleTapGestureRecognizer.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="src\CBApp.h" />
     <ClInclude Include="src\CircleVisualization.h" />
     <ClInclude Include="src\CompositionLayer.h" />
+    <ClInclude Include="src\DragGestureRecognizer.h" />
     <ClInclude Include="src\Event.h" />
     <ClInclude Include="src\EventPlayer.h" />
     <ClInclude Include="src\GestureRecognizer.h" />

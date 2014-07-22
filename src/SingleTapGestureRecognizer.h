@@ -5,32 +5,29 @@
 
 class GestureRecognizer;
 
-namespace
-{
-	struct MonitoredTouch
-	{
-		int 	Id;
-		float 	TouchDownTime;
-	};
-}
-
-class SingleTapGestureRecognizer : public IGestureRecognizer
+class SingleTapGestureRecognizer
 {
 	IGestureConsumer* 	Consumer;
 	GestureRecognizer*	_GestureRecognizer;
 
-	std::vector<MonitoredTouch> 	MonitoredTouches;
+	std::vector<Touch> 	MonitoredTouches;
 
+	bool TapStillPossible(const Touch& touch, float currentTime);
 	void RemoveMonitoredTouch(Touch touch);
-	MonitoredTouch* FindMonitoredTouch(Touch touch);
+	Touch* FindMonitoredTouch(int touch);
 
 public:
-	virtual void Initialize(
-			GestureRecognizer* gestureRecognizer,
+	void Initialize(
 			IGestureConsumer* consumer);
 
-	virtual void OnTouchDown(Touch touch, float currentTime);
-	virtual void OnTouchUp(Touch touch, float currentTime);
-	virtual void OnTouchMoved(Touch touch, float currentTime) {}
-	virtual void Update(float secondsPassed) {}
+	bool IsMonitoringTouch(int touchId);
+
+	void OnTouchDown(const Touch& touch);
+	void OnTouchUp(const Touch& touch, float currentTime);
+	void OnTouchMoved(const Touch& touch, float currentTime);
+
+	void Update(
+			float currentTime, 
+			Touch* out_canceledTouches, 
+			int* out_canceledTouchesCount);
 };

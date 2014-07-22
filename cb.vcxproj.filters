@@ -66,6 +66,9 @@
     <ClCompile Include="tween\ofxTween.cpp">
       <Filter>tween</Filter>
     </ClCompile>
+    <ClCompile Include="src\DragGestureRecognizer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -154,6 +157,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\IGestureConsumer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\DragGestureRecognizer.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

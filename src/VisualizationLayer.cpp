@@ -4,6 +4,36 @@
 
 #define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
+class PositionTranslator : public IDragGestureConsumer
+{
+	ofVec2f CanvasDimensions;
+	IDragGestureConsumer* Recipient;
+
+public:
+	PositionTranslator(const ofVec2f& canvasDimensions, IDragGestureConsumer* recipient)
+		: CanvasDimensions(canvasDimensions), Recipient(recipient)
+	{
+	}
+
+	virtual void UpdateDrag(ofVec2f position, float pressure)
+	{
+		ofVec2f modifiedPosition(
+				position.x * CanvasDimensions.x,
+				position.y * CanvasDimensions.y);
+
+		Recipient->UpdateDrag(modifiedPosition, pressure);
+	}
+
+	virtual void EndDrag(ofVec2f position, float pressure) 
+	{
+		ofVec2f modifiedPosition(
+				position.x * CanvasDimensions.x,
+				position.y * CanvasDimensions.y);
+
+		Recipient->EndDrag(modifiedPosition, pressure);
+	}
+};
+
 //---------------------------------------------------------------------
 VisualizationLayer::VisualizationLayer(
 		PooledFactory<CircleVisualization>* circleFactory,
@@ -14,7 +44,7 @@ VisualizationLayer::VisualizationLayer(
 }
 
 //---------------------------------------------------------------------
-IDragGestureConsumer* VisualizationLayer::OnStartDrag(ofVec2f position, float pressure)
+ofPtr<IDragGestureConsumer> VisualizationLayer::OnStartDrag(ofVec2f position, float pressure)
 {
 	ofVec2f modifiedPosition(
 				position.x * CanvasDimensions.x,
@@ -28,7 +58,7 @@ IDragGestureConsumer* VisualizationLayer::OnStartDrag(ofVec2f position, float pr
 			0.0f);
 
 	Circles.push_back(newCircle);
-	return newCircle;
+	return ofPtr<IDragGestureConsumer>(new PositionTranslator(CanvasDimensions, newCircle));
 }
 
 //---------------------------------------------------------------------
