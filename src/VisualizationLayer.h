@@ -14,6 +14,7 @@ class VisualizationLayer : public IEventReceiver, public IGestureConsumer
 
 	ofVec2f CanvasDimensions;
 
+	ofVec2f ConvertToScreenSpace(const ofVec2f& normalized);
 public:
 	VisualizationLayer(
 			PooledFactory<CircleVisualization>* circleFactory,

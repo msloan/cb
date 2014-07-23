@@ -4,14 +4,14 @@
 
 #define CIRCLE_RADIUS_MODIFIER (1.f / (500.f))
 
-class PositionTranslator : public IDragGestureConsumer
+class CircleUpdater : public IDragGestureConsumer
 {
 	ofVec2f CanvasDimensions;
-	IDragGestureConsumer* Recipient;
+	CircleVisualization* Circle;
 
 public:
-	PositionTranslator(const ofVec2f& canvasDimensions, IDragGestureConsumer* recipient)
-		: CanvasDimensions(canvasDimensions), Recipient(recipient)
+	CircleUpdater(const ofVec2f& canvasDimensions, CircleVisualization* circle)
+		: CanvasDimensions(canvasDimensions), Circle(circle)
 	{
 	}
 
@@ -21,7 +21,8 @@ public:
 				position.x * CanvasDimensions.x,
 				position.y * CanvasDimensions.y);
 
-		Recipient->UpdateDrag(modifiedPosition, pressure);
+		Circle->SetPosition(modifiedPosition);
+		Circle->SetSize(pressure);
 	}
 
 	virtual void EndDrag(ofVec2f position, float pressure) 
@@ -30,7 +31,7 @@ public:
 				position.x * CanvasDimensions.x,
 				position.y * CanvasDimensions.y);
 
-		Recipient->EndDrag(modifiedPosition, pressure);
+		Circle->StartFadeOutAnimation(modifiedPosition);
 	}
 };
 
@@ -58,15 +59,22 @@ ofPtr<IDragGestureConsumer> VisualizationLayer::OnStartDrag(ofVec2f position, fl
 			0.0f);
 
 	Circles.push_back(newCircle);
-	return ofPtr<IDragGestureConsumer>(new PositionTranslator(CanvasDimensions, newCircle));
+	return ofPtr<IDragGestureConsumer>(
+			new CircleUpdater(CanvasDimensions, newCircle));
+}
+
+//---------------------------------------------------------------------
+ofVec2f VisualizationLayer::ConvertToScreenSpace(const ofVec2f& position)
+{
+	return ofVec2f(
+			position.x * CanvasDimensions.x,
+			position.y * CanvasDimensions.y);
 }
 
 //---------------------------------------------------------------------
 void VisualizationLayer::OnSingleTap(ofVec2f position, float pressure)
 {
-	ofVec2f modifiedPosition(
-				position.x * CanvasDimensions.x,
-				position.y * CanvasDimensions.y);
+	ofVec2f modifiedPosition = ConvertToScreenSpace(position);
 
 	CircleVisualization* newCircle = CircleFactory->Create();
 	newCircle->Initialize(
@@ -76,6 +84,7 @@ void VisualizationLayer::OnSingleTap(ofVec2f position, float pressure)
 			0.0f);
 
 	Circles.push_back(newCircle);
+	newCircle->StartFadeOutAnimation(modifiedPosition);
 }
 
 //---------------------------------------------------------------------
@@ -93,7 +102,7 @@ void VisualizationLayer::Update(float dt)
 	for (int i = 0; i < Circles.size(); i++)
 	{
 		CircleVisualization& circle = *(Circles[i]);
-		if (circle.Done())
+		if (circle.IsDone())
 		{
 			circle.Release();
 			Circles.erase(Circles.begin() + i);

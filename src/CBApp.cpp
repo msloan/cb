@@ -154,7 +154,7 @@ void CBApp::CreateNewLayer()
 
 void CBApp::Record()
 {
-	SoundPlayer.setPaused(false);
+	//SoundPlayer.setPaused(false);
 	PlayAllSavedLayers();
 	SetState(Recording);
 }
@@ -213,7 +213,7 @@ void CBApp::PlayAllSavedLayers()
 
 void CBApp::Play()
 {
-	SoundPlayer.setPaused(false);
+	//SoundPlayer.setPaused(false);
 	PlayAllLayers();
 	SetState(Playing);
 }

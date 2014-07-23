@@ -5,9 +5,14 @@
 #include "../tween/ofxTween.h"
 #include "IGestureConsumer.h"
 
-class CircleVisualization : public Poolable, public IDragGestureConsumer
+class CircleVisualization : public Poolable
 {
-	bool	_Done;
+	enum State
+	{
+		Idle,
+		FadingOut,
+		Done
+	};
 
 	ofVec2f Position;
 	ofColor InitialColor;
@@ -21,9 +26,14 @@ class CircleVisualization : public Poolable, public IDragGestureConsumer
 	ofxEasingExpo easingExpo;
 	ofxEasingQuad easingQuad;
 
+	void UpdateFadingOutAnimation(float dt);
+
 	void TweenAlpha(float time);
 	void TweenRadius(float time);
 	void ExpandContractToFixed(float time);
+
+	State CurrentState;
+	void SetState(State nextState) { CurrentState = nextState; }
 public:
 
 	CircleVisualization();
@@ -34,12 +44,13 @@ public:
 		ofColor color,
 		float startTime = 0.0f);
 
-	bool Done()			{ return _Done; }
+	bool IsDone()			{ return CurrentState == Done; }
 
 	void Update(float dt);
 	void Draw();
 
-	virtual void UpdateDrag(ofVec2f position, float pressure);
-	virtual void EndDrag(ofVec2f position, float pressure) {}
+	void SetPosition(ofVec2f position);
+	void SetSize(float size);
+	void StartFadeOutAnimation(ofVec2f position);
 };
 
