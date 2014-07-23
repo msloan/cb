@@ -27,7 +27,6 @@ void CircleVisualization::Initialize(
 	CurrentAlpha = STARTING_ALPHA;
 	CurrentTime = 0.0f;
 	_Done = false;
-
 	
 	_Done = false;
 }
@@ -52,6 +51,7 @@ void CircleVisualization::ExpandContractToFixed(float time)
 	else
 	{
 		CurrentRadius = ofxTween::map(time, CONTRACT_TIME, DURATION, MAX_RADIUS * InitialRadius, 0, false, easingQuad, ofxTween::easeOut);
+
 	}
 }
 
@@ -73,4 +73,3 @@ void CircleVisualization::Draw()
 	ofSetCircleResolution(CIRCLE_RESOLUTION);
 	ofCircle(Position.x, Position.y, CurrentRadius);
 }
-

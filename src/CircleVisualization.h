@@ -7,7 +7,6 @@
 
 class CircleVisualization : public Poolable, public IDragGestureConsumer
 {
-
 	bool	_Done;
 
 	ofVec2f Position;

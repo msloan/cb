@@ -16,7 +16,6 @@ public:
 		InUse = false;
 	}
 };
-extern Touch NullTouch;
 
 class IGestureRecognizer
 {

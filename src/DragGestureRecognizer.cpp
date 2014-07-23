@@ -3,8 +3,6 @@
 #include "IGestureConsumer.h"
 #include <assert.h>
 
-Touch NullTouch;
-
 #define REQUIRED_CONTACT_TIME_TO_DRAG 0.5f
 
 //-------------------------------------------------------------------------------------
