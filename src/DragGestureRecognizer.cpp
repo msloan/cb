@@ -3,8 +3,6 @@
 #include "IGestureConsumer.h"
 #include <assert.h>
 
-#define REQUIRED_CONTACT_TIME_TO_DRAG 0.5f
-
 //-------------------------------------------------------------------------------------
 void DragGestureRecognizer::Initialize(
 		IGestureConsumer* consumer)
@@ -20,8 +18,8 @@ void DragGestureRecognizer::OnTouchDown(const Touch& touch)
 {
 	ActiveDrag drag;
 	drag.Id = touch.Id;
-	drag.Consumer = Consumer->OnStartDrag(touch.Position, touch.Pressure);
-
+	drag.Consumer = Consumer->OnStartDrag(touch.Position, touch.PeakPressure);
+    ofLog() << "["<<touch.Id<<"] "<< "START DRAG";
 	ActiveDrags.push_back(drag);
 }
 

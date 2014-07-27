@@ -24,6 +24,7 @@ class GestureRecognizer : public IEventReceiver
 	void OnUpdate(float secondsPassed);
 
 	void UpdateTouch(const Event& event);
+    void RemoveTouch(int touchId);
 
 public:
 

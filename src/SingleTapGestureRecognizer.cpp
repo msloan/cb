@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #define MAX_MONITORED_TOUCHES 100
-#define ALLOWED_CONTACT_TIME 0.5f
+#define ALLOWED_CONTACT_TIME 0.05f
 
 //-----------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::Initialize(
@@ -54,12 +54,9 @@ void SingleTapGestureRecognizer::OnTouchDown(const Touch& touch)
 //------------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::OnTouchUp(const Touch& touch, float currentTime)
 {
-	if (TapStillPossible(touch, currentTime))
-	{
-		Consumer->OnSingleTap(touch.Position, touch.PeakPressure);
-	}
-
-	RemoveMonitoredTouch(touch.Id);
+    ofLog() << "["<<touch.Id<<"] "<< "TAP";
+    Consumer->OnSingleTap(touch.Position, touch.PeakPressure);
+    RemoveMonitoredTouch(touch.Id);
 }
 
 //------------------------------------------------------------------------------------

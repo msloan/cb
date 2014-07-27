@@ -39,6 +39,7 @@ bool CBApp::DebugButtonPressed(const Event& event)
 	{
 		if (x < 0.05f && y <0.05f)
 		{
+            SaveLayer();
 			Record();
 			return true;
 		}
@@ -49,6 +50,7 @@ bool CBApp::DebugButtonPressed(const Event& event)
 		}
 		else if (x > 0.9f && y < 0.05f)
 		{
+            Pause();
 			Reset();		
 			return true;
 		}

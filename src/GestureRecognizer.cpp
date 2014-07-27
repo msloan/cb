@@ -33,11 +33,14 @@ void GestureRecognizer::OnEvent(const Event& event)
 	}
 	else if (event.Type == Event::TouchUp)
 	{
+        if (Touches.size() == 0) return; // hack related to debug buttons
 		UpdateTouch(event);
 		OnTouchUp(event.Value.Touch.Id);
+        RemoveTouch(event.Value.Touch.Id);
 	}
 	else if (event.Type == Event::TouchMove)
 	{
+        if (Touches.size() == 0) return; // hack related to debug buttons
 		UpdateTouch(event);
 		OnTouchMoved(event.Value.Touch.Id);
 	}
@@ -47,6 +50,18 @@ void GestureRecognizer::OnEvent(const Event& event)
 	}
 }
 
+void GestureRecognizer::RemoveTouch(int id)
+{
+    for (int i = 0; i < Touches.size(); i++)
+    {
+        if (Touches[i].Id == id)
+        {
+            Touches.erase(Touches.begin() + i);
+            return;
+        }
+    }
+    assert(0);
+}
 //------------------------------------------------------------------------------------
 void GestureRecognizer::UpdateTouch(const Event& event)
 {
