@@ -8,32 +8,38 @@
 //------------------------------------------------------------------------------------
 void GestureRecognizer::Initialize(IGestureConsumer* consumer)
 {
-	TapRecognizer.Initialize(consumer);
+	TapRecognizer.Initialize(this, consumer);
 	DragRecognizer.Initialize(consumer);
+	Touches.reserve(MAX_TOUCHES);
 }
 
 //------------------------------------------------------------------------------------
 void GestureRecognizer::OnEvent(const Event& event)
 {
-	Touch touch;
-	touch.Id = event.Value.Touch.Id;
-	touch.Position = ofVec2f(
-			event.Value.Touch.x,
-			event.Value.Touch.y);
-	touch.Pressure = event.Value.Touch.Pressure;
-	touch.TimeDown = ofGetElapsedTimef();
-
 	if (event.Type == Event::TouchDown)
 	{
-		OnTouchDown(touch);
+		Touch touch;
+		touch.Id = event.Value.Touch.Id;
+		touch.Position = ofVec2f(
+				event.Value.Touch.x,
+				event.Value.Touch.y);
+		touch.StartPosition = touch.Position;
+		touch.Pressure = event.Value.Touch.Pressure;
+		touch.PeakPressure = touch.Pressure;
+		touch.TimeDown = ofGetElapsedTimef();
+		Touches.push_back(touch);
+
+		OnTouchDown(touch.Id);
 	}
 	else if (event.Type == Event::TouchUp)
 	{
-		OnTouchUp(touch);
+		UpdateTouch(event);
+		OnTouchUp(event.Value.Touch.Id);
 	}
 	else if (event.Type == Event::TouchMove)
 	{
-		OnTouchMoved(touch);
+		UpdateTouch(event);
+		OnTouchMoved(event.Value.Touch.Id);
 	}
 	else if (event.Type == Event::TimePassed)
 	{
@@ -42,9 +48,41 @@ void GestureRecognizer::OnEvent(const Event& event)
 }
 
 //------------------------------------------------------------------------------------
-void GestureRecognizer::OnTouchMoved(const Touch& touch)
+void GestureRecognizer::UpdateTouch(const Event& event)
 {
-	if (TapRecognizer.IsMonitoringTouch(touch.Id))
+	Touch& touch = GetTouch(event.Value.Touch.Id);
+
+	touch.Position = ofVec2f(
+			event.Value.Touch.x,
+			event.Value.Touch.y);
+
+	touch.PeakPressure = std::max(
+			touch.Pressure,
+			event.Value.Touch.Pressure);
+
+	touch.Pressure = event.Value.Touch.Pressure;
+}
+
+
+//------------------------------------------------------------------------------------
+Touch& GestureRecognizer::GetTouch(int id)
+{
+	for (int i = 0; i < Touches.size(); i++)
+	{
+		if (Touches[i].Id == id) return Touches[i];
+	}
+
+	assert(0);
+	Touch dummy;
+	return dummy;
+}
+
+//------------------------------------------------------------------------------------
+void GestureRecognizer::OnTouchMoved(int touchId)
+{
+	Touch& touch = GetTouch(touchId);
+
+	if (TapRecognizer.IsMonitoringTouch(touchId))
 	{
 		TapRecognizer.OnTouchMoved(touch, ofGetElapsedTimef());
 	}
@@ -59,15 +97,17 @@ void GestureRecognizer::OnTouchMoved(const Touch& touch)
 }
 
 //------------------------------------------------------------------------------------
-void GestureRecognizer::OnTouchDown(const Touch& touch)
+void GestureRecognizer::OnTouchDown(int touchId)
 {
-	TapRecognizer.OnTouchDown(touch);
+	TapRecognizer.OnTouchDown(
+			GetTouch(touchId));
 }
 
 //------------------------------------------------------------------------------------
-void GestureRecognizer::OnTouchUp(const Touch& touch)
+void GestureRecognizer::OnTouchUp(int touchId)
 {
-	if (TapRecognizer.IsMonitoringTouch(touch.Id))
+	Touch& touch = GetTouch(touchId);
+	if (TapRecognizer.IsMonitoringTouch(touchId))
 	{
 		TapRecognizer.OnTouchUp(touch, ofGetElapsedTimef());
 	}
@@ -80,14 +120,16 @@ void GestureRecognizer::OnTouchUp(const Touch& touch)
 //------------------------------------------------------------------------------------
 void GestureRecognizer::OnUpdate(float secondsPassed)
 {
-	Touch canceledTouches[MAX_MONITORED_TOUCHES];
+	int canceledTouches[MAX_MONITORED_TOUCHES];
 	int canceledTouchesCount;
 
 	TapRecognizer.Update(ofGetElapsedTimef(), &canceledTouches[0], &canceledTouchesCount);
 
 	for (int i = 0; i < canceledTouchesCount; i++)
 	{
-		Touch& canceledTouch = canceledTouches[i];
+		Touch& canceledTouch = GetTouch(
+				canceledTouches[i]);
+
 		DragRecognizer.OnTouchDown(canceledTouch);
 	}
 }

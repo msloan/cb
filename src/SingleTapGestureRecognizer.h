@@ -10,14 +10,16 @@ class SingleTapGestureRecognizer
 	IGestureConsumer* 	Consumer;
 	GestureRecognizer*	_GestureRecognizer;
 
-	std::vector<Touch> 	MonitoredTouches;
+	std::vector<int> MonitoredTouches;
 
 	bool TapStillPossible(const Touch& touch, float currentTime);
-	void RemoveMonitoredTouch(Touch touch);
-	Touch* FindMonitoredTouch(int touch);
+	void RemoveMonitoredTouch(int touchId);
+
+	const Touch& GetTouch(int id);
 
 public:
 	void Initialize(
+			GestureRecognizer* recognizer,
 			IGestureConsumer* consumer);
 
 	bool IsMonitoringTouch(int touchId);
@@ -28,6 +30,6 @@ public:
 
 	void Update(
 			float currentTime, 
-			Touch* out_canceledTouches, 
+			int* out_canceledTouches, 
 			int* out_canceledTouchesCount);
 };
