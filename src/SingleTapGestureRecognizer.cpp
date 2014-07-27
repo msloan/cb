@@ -7,19 +7,21 @@
 
 //-----------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::Initialize(
+		GestureRecognizer* recognizer,
 		IGestureConsumer* consumer)
 {
+	_GestureRecognizer = recognizer;
 	Consumer = consumer;
 
 	MonitoredTouches.reserve(MAX_MONITORED_TOUCHES);
 }
 
 //------------------------------------------------------------------------------------
-void SingleTapGestureRecognizer::RemoveMonitoredTouch(Touch touch)
+void SingleTapGestureRecognizer::RemoveMonitoredTouch(int touchId)
 {
 	for (int i = 0; i < MonitoredTouches.size(); i++)
 	{
-		if (MonitoredTouches[i].Id == touch.Id)
+		if (MonitoredTouches[i] == touchId)
 		{
 			MonitoredTouches.erase(MonitoredTouches.begin() + i);
 			return;
@@ -31,20 +33,11 @@ void SingleTapGestureRecognizer::RemoveMonitoredTouch(Touch touch)
 //------------------------------------------------------------------------------------
 bool SingleTapGestureRecognizer::IsMonitoringTouch(int touchId)
 {
-	return FindMonitoredTouch(touchId) != NULL;
-}
-
-//------------------------------------------------------------------------------------
-Touch* SingleTapGestureRecognizer::FindMonitoredTouch(int touchId)
-{
 	for (int i = 0; i < MonitoredTouches.size(); i++)
 	{
-		if (MonitoredTouches[i].Id == touchId) 
-		{
-			return &MonitoredTouches[i];
-		}
+		if (MonitoredTouches[i] == touchId) return true;
 	}
-	return NULL;
+	return false;
 }
 
 //------------------------------------------------------------------------------------
@@ -55,7 +48,7 @@ void SingleTapGestureRecognizer::OnTouchMoved(const Touch& touch, float currentT
 //------------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::OnTouchDown(const Touch& touch)
 {
-	MonitoredTouches.push_back(touch);
+	MonitoredTouches.push_back(touch.Id);
 }
 
 //------------------------------------------------------------------------------------
@@ -63,10 +56,10 @@ void SingleTapGestureRecognizer::OnTouchUp(const Touch& touch, float currentTime
 {
 	if (TapStillPossible(touch, currentTime))
 	{
-		Consumer->OnSingleTap(touch.Position, touch.Pressure);
+		Consumer->OnSingleTap(touch.Position, touch.PeakPressure);
 	}
 
-	RemoveMonitoredTouch(touch);
+	RemoveMonitoredTouch(touch.Id);
 }
 
 //------------------------------------------------------------------------------------
@@ -78,19 +71,25 @@ bool SingleTapGestureRecognizer::TapStillPossible(const Touch& touch, float curr
 //------------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::Update(
 		float currentTime, 
-		Touch* out_canceledTouches, 
+		int* out_canceledTouches, 
 		int* out_canceledTouchesCount)
 {
 	*out_canceledTouchesCount = 0;
 
 	for (int i = 0; i < MonitoredTouches.size(); i++)
 	{
-		Touch& touch = MonitoredTouches[i];
+		const Touch& touch = GetTouch(MonitoredTouches[i]);
 		if (!TapStillPossible(touch, currentTime))
 		{
-			out_canceledTouches[*out_canceledTouchesCount] = touch;	
+			out_canceledTouches[*out_canceledTouchesCount] = touch.Id;
 			*out_canceledTouchesCount = *out_canceledTouchesCount + 1;
-			RemoveMonitoredTouch(touch);
+			RemoveMonitoredTouch(touch.Id);
 		}
 	}
+}
+
+//------------------------------------------------------------------------------------
+const Touch& SingleTapGestureRecognizer::GetTouch(int id) 
+{ 
+	return _GestureRecognizer->GetTouch(id); 
 }

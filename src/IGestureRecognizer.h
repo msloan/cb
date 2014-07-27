@@ -6,15 +6,13 @@ class Touch
 {
 public:
 	int 	Id;
-	float 	Pressure;
-	ofVec2f Position;
 	float 	TimeDown;
-	bool 	InUse;
 
-	Touch()
-	{
-		InUse = false;
-	}
+	float 	Pressure;
+	float 	PeakPressure;
+
+	ofVec2f StartPosition;
+	ofVec2f Position;
 };
 
 class IGestureRecognizer

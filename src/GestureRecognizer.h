@@ -13,16 +13,22 @@ class IGestureRecognizer;
 
 class GestureRecognizer : public IEventReceiver
 {
+	std::vector<Touch> Touches;
+
 	SingleTapGestureRecognizer TapRecognizer;
 	DragGestureRecognizer 		DragRecognizer;
 	
-	void OnTouchDown(const Touch& touch);
-	void OnTouchUp(const Touch& touch);
-	void OnTouchMoved(const Touch& touch);
+	void OnTouchDown(int touchId);
+	void OnTouchUp(int touchId);
+	void OnTouchMoved(int touchId);
 	void OnUpdate(float secondsPassed);
+
+	void UpdateTouch(const Event& event);
 
 public:
 
 	void Initialize(IGestureConsumer* consumer);
 	virtual void OnEvent(const Event& event);
+
+	Touch& GetTouch(int id);
 };
