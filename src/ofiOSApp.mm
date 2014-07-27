@@ -1,4 +1,5 @@
 #include "ofiOSApp.h"
+#include "Event.h"
 
 //--------------------------------------------------------------
 void ofiOSApp::setup(){	
@@ -32,6 +33,7 @@ void ofiOSApp::touchDown(ofTouchEventArgs & touch){
     touchEvent.Value.Touch.Pressure = touch.majoraxis;
 
 
+    ofLog() << "down. id: " << touch.id << " pressure: " << touch.majoraxis;
     App->PostEvent(touchEvent);
 }
 
@@ -39,18 +41,29 @@ void ofiOSApp::touchDown(ofTouchEventArgs & touch){
 void ofiOSApp::touchMoved(ofTouchEventArgs & touch){
 
 	Event touchMoveEvent;
-	touchMoveEvent.Type = Event::Type::TouchMove;
+	touchMoveEvent.Type = Event::TouchMove;
 	touchMoveEvent.Value.Touch.Id = touch.id;
 	touchMoveEvent.Value.Touch.x = (float)touch.x / ofGetWidth();
 	touchMoveEvent.Value.Touch.y = (float)touch.y / ofGetHeight();
 	touchMoveEvent.Value.Touch.Pressure = touch.majoraxis;
 
+    ofLog() << "moved. id: " << touch.id << " pressure: " << touch.majoraxis;
+    ofLog() << touch.x << " " << touch.y;
 	App->PostEvent(touchMoveEvent);
 }
 
 //--------------------------------------------------------------
 void ofiOSApp::touchUp(ofTouchEventArgs & touch){
-
+    
+    Event touchUpEvent;
+    touchUpEvent.Type = Event::TouchUp;
+    touchUpEvent.Value.Touch.Id = touch.id;
+    touchUpEvent.Value.Touch.x = (float)touch.x / ofGetWidth();
+    touchUpEvent.Value.Touch.y = (float)touch.y / ofGetHeight();
+    touchUpEvent.Value.Touch.Pressure = touch.majoraxis;
+    
+    ofLog() << "touchUp. id: " << touch.id << " pressure: " << touch.majoraxis;
+    App->PostEvent(touchUpEvent);
 }
 
 //--------------------------------------------------------------

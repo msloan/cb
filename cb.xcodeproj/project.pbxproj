@@ -17,7 +17,24 @@
 		678E130C1795153C005B6D19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130B1795153C005B6D19 /* Default.png */; };
 		678E130E17951540005B6D19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130D17951540005B6D19 /* Default@2x.png */; };
 		678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */; };
-		70438B111960A51F006C7984 /* now.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 70438B101960A51F006C7984 /* now.m4a */; };
+		700D6258198459F0000B6749 /* now.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 700D6257198459F0000B6749 /* now.mp3 */; };
+		700D626219845AAF000B6749 /* DragGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D625919845AAF000B6749 /* DragGestureRecognizer.cpp */; };
+		700D626319845AAF000B6749 /* GestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D625B19845AAF000B6749 /* GestureRecognizer.cpp */; };
+		700D626419845AAF000B6749 /* SingleTapGestureRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D626019845AAF000B6749 /* SingleTapGestureRecognizer.cpp */; };
+		700D628319845AE7000B6749 /* easing_terms_of_use.html in Resources */ = {isa = PBXBuildFile; fileRef = 700D626819845AE7000B6749 /* easing_terms_of_use.html */; };
+		700D628419845AE7000B6749 /* ofxEasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D626919845AE7000B6749 /* ofxEasing.cpp */; };
+		700D628519845AE7000B6749 /* ofxEasingBack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D626B19845AE7000B6749 /* ofxEasingBack.cpp */; };
+		700D628619845AE7000B6749 /* ofxEasingBounce.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D626D19845AE7000B6749 /* ofxEasingBounce.cpp */; };
+		700D628719845AE7000B6749 /* ofxEasingCirc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D626F19845AE7000B6749 /* ofxEasingCirc.cpp */; };
+		700D628819845AE7000B6749 /* ofxEasingCubic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627119845AE7000B6749 /* ofxEasingCubic.cpp */; };
+		700D628919845AE7000B6749 /* ofxEasingElastic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627319845AE7000B6749 /* ofxEasingElastic.cpp */; };
+		700D628A19845AE7000B6749 /* ofxEasingExpo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627519845AE7000B6749 /* ofxEasingExpo.cpp */; };
+		700D628B19845AE7000B6749 /* ofxEasingLinear.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627719845AE7000B6749 /* ofxEasingLinear.cpp */; };
+		700D628C19845AE7000B6749 /* ofxEasingQuad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627919845AE7000B6749 /* ofxEasingQuad.cpp */; };
+		700D628D19845AE7000B6749 /* ofxEasingQuart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627B19845AE7000B6749 /* ofxEasingQuart.cpp */; };
+		700D628E19845AE7000B6749 /* ofxEasingQuint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627D19845AE7000B6749 /* ofxEasingQuint.cpp */; };
+		700D628F19845AE7000B6749 /* ofxEasingSine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D627F19845AE7000B6749 /* ofxEasingSine.cpp */; };
+		700D629019845AE7000B6749 /* ofxTween.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 700D628119845AE7000B6749 /* ofxTween.cpp */; };
 		7047689719607D6C00D741AD /* CompositionLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7047689319607D6C00D741AD /* CompositionLayer.cpp */; };
 		7047689819607D6C00D741AD /* SoundCloudClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7047689519607D6C00D741AD /* SoundCloudClient.cpp */; };
 		7081693219581F7D00FD4E81 /* CBApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7081692719581F7D00FD4E81 /* CBApp.cpp */; };
@@ -66,7 +83,43 @@
 		678E130B1795153C005B6D19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = bin/data/Default.png; sourceTree = "<group>"; };
 		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
 		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
-		70438B101960A51F006C7984 /* now.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; name = now.m4a; path = bin/data/now.m4a; sourceTree = "<group>"; };
+		700D6257198459F0000B6749 /* now.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = now.mp3; path = bin/data/now.mp3; sourceTree = "<group>"; };
+		700D625919845AAF000B6749 /* DragGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DragGestureRecognizer.cpp; sourceTree = "<group>"; };
+		700D625A19845AAF000B6749 /* DragGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragGestureRecognizer.h; sourceTree = "<group>"; };
+		700D625B19845AAF000B6749 /* GestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GestureRecognizer.cpp; sourceTree = "<group>"; };
+		700D625C19845AAF000B6749 /* GestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GestureRecognizer.h; sourceTree = "<group>"; };
+		700D625D19845AAF000B6749 /* IEventReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IEventReceiver.h; sourceTree = "<group>"; };
+		700D625E19845AAF000B6749 /* IGestureConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGestureConsumer.h; sourceTree = "<group>"; };
+		700D625F19845AAF000B6749 /* IGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGestureRecognizer.h; sourceTree = "<group>"; };
+		700D626019845AAF000B6749 /* SingleTapGestureRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SingleTapGestureRecognizer.cpp; sourceTree = "<group>"; };
+		700D626119845AAF000B6749 /* SingleTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleTapGestureRecognizer.h; sourceTree = "<group>"; };
+		700D626819845AE7000B6749 /* easing_terms_of_use.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = easing_terms_of_use.html; sourceTree = "<group>"; };
+		700D626919845AE7000B6749 /* ofxEasing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasing.cpp; sourceTree = "<group>"; };
+		700D626A19845AE7000B6749 /* ofxEasing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasing.h; sourceTree = "<group>"; };
+		700D626B19845AE7000B6749 /* ofxEasingBack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingBack.cpp; sourceTree = "<group>"; };
+		700D626C19845AE7000B6749 /* ofxEasingBack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingBack.h; sourceTree = "<group>"; };
+		700D626D19845AE7000B6749 /* ofxEasingBounce.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingBounce.cpp; sourceTree = "<group>"; };
+		700D626E19845AE7000B6749 /* ofxEasingBounce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingBounce.h; sourceTree = "<group>"; };
+		700D626F19845AE7000B6749 /* ofxEasingCirc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingCirc.cpp; sourceTree = "<group>"; };
+		700D627019845AE7000B6749 /* ofxEasingCirc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingCirc.h; sourceTree = "<group>"; };
+		700D627119845AE7000B6749 /* ofxEasingCubic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingCubic.cpp; sourceTree = "<group>"; };
+		700D627219845AE7000B6749 /* ofxEasingCubic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingCubic.h; sourceTree = "<group>"; };
+		700D627319845AE7000B6749 /* ofxEasingElastic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingElastic.cpp; sourceTree = "<group>"; };
+		700D627419845AE7000B6749 /* ofxEasingElastic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingElastic.h; sourceTree = "<group>"; };
+		700D627519845AE7000B6749 /* ofxEasingExpo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingExpo.cpp; sourceTree = "<group>"; };
+		700D627619845AE7000B6749 /* ofxEasingExpo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingExpo.h; sourceTree = "<group>"; };
+		700D627719845AE7000B6749 /* ofxEasingLinear.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingLinear.cpp; sourceTree = "<group>"; };
+		700D627819845AE7000B6749 /* ofxEasingLinear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingLinear.h; sourceTree = "<group>"; };
+		700D627919845AE7000B6749 /* ofxEasingQuad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingQuad.cpp; sourceTree = "<group>"; };
+		700D627A19845AE7000B6749 /* ofxEasingQuad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingQuad.h; sourceTree = "<group>"; };
+		700D627B19845AE7000B6749 /* ofxEasingQuart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingQuart.cpp; sourceTree = "<group>"; };
+		700D627C19845AE7000B6749 /* ofxEasingQuart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingQuart.h; sourceTree = "<group>"; };
+		700D627D19845AE7000B6749 /* ofxEasingQuint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingQuint.cpp; sourceTree = "<group>"; };
+		700D627E19845AE7000B6749 /* ofxEasingQuint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingQuint.h; sourceTree = "<group>"; };
+		700D627F19845AE7000B6749 /* ofxEasingSine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEasingSine.cpp; sourceTree = "<group>"; };
+		700D628019845AE7000B6749 /* ofxEasingSine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEasingSine.h; sourceTree = "<group>"; };
+		700D628119845AE7000B6749 /* ofxTween.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTween.cpp; sourceTree = "<group>"; };
+		700D628219845AE7000B6749 /* ofxTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTween.h; sourceTree = "<group>"; };
 		7047689319607D6C00D741AD /* CompositionLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompositionLayer.cpp; sourceTree = "<group>"; };
 		7047689419607D6C00D741AD /* CompositionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompositionLayer.h; sourceTree = "<group>"; };
 		7047689519607D6C00D741AD /* SoundCloudClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundCloudClient.cpp; sourceTree = "<group>"; };
@@ -78,7 +131,6 @@
 		7081692B19581F7D00FD4E81 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		7081692C19581F7D00FD4E81 /* EventPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventPlayer.cpp; sourceTree = "<group>"; };
 		7081692D19581F7D00FD4E81 /* EventPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventPlayer.h; sourceTree = "<group>"; };
-		7081692E19581F7D00FD4E81 /* PCH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCH.h; sourceTree = "<group>"; };
 		7081692F19581F7D00FD4E81 /* PooledFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PooledFactory.h; sourceTree = "<group>"; };
 		7081693019581F7D00FD4E81 /* VisualizationLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VisualizationLayer.cpp; sourceTree = "<group>"; };
 		7081693119581F7D00FD4E81 /* VisualizationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationLayer.h; sourceTree = "<group>"; };
@@ -134,7 +186,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				70438B101960A51F006C7984 /* now.m4a */,
+				700D626619845AE7000B6749 /* tween */,
+				700D6257198459F0000B6749 /* now.mp3 */,
 				678E130917951536005B6D19 /* Icon.png */,
 				678E130717951530005B6D19 /* Icon@2x.png */,
 				678E130B1795153C005B6D19 /* Default.png */,
@@ -167,6 +220,48 @@
 				5326AEA710A23A0500278DE6 /* CoreLocation.framework */,
 			);
 			name = "core frameworks";
+			sourceTree = "<group>";
+		};
+		700D626619845AE7000B6749 /* tween */ = {
+			isa = PBXGroup;
+			children = (
+				700D626719845AE7000B6749 /* Easings */,
+				700D628119845AE7000B6749 /* ofxTween.cpp */,
+				700D628219845AE7000B6749 /* ofxTween.h */,
+			);
+			path = tween;
+			sourceTree = "<group>";
+		};
+		700D626719845AE7000B6749 /* Easings */ = {
+			isa = PBXGroup;
+			children = (
+				700D626819845AE7000B6749 /* easing_terms_of_use.html */,
+				700D626919845AE7000B6749 /* ofxEasing.cpp */,
+				700D626A19845AE7000B6749 /* ofxEasing.h */,
+				700D626B19845AE7000B6749 /* ofxEasingBack.cpp */,
+				700D626C19845AE7000B6749 /* ofxEasingBack.h */,
+				700D626D19845AE7000B6749 /* ofxEasingBounce.cpp */,
+				700D626E19845AE7000B6749 /* ofxEasingBounce.h */,
+				700D626F19845AE7000B6749 /* ofxEasingCirc.cpp */,
+				700D627019845AE7000B6749 /* ofxEasingCirc.h */,
+				700D627119845AE7000B6749 /* ofxEasingCubic.cpp */,
+				700D627219845AE7000B6749 /* ofxEasingCubic.h */,
+				700D627319845AE7000B6749 /* ofxEasingElastic.cpp */,
+				700D627419845AE7000B6749 /* ofxEasingElastic.h */,
+				700D627519845AE7000B6749 /* ofxEasingExpo.cpp */,
+				700D627619845AE7000B6749 /* ofxEasingExpo.h */,
+				700D627719845AE7000B6749 /* ofxEasingLinear.cpp */,
+				700D627819845AE7000B6749 /* ofxEasingLinear.h */,
+				700D627919845AE7000B6749 /* ofxEasingQuad.cpp */,
+				700D627A19845AE7000B6749 /* ofxEasingQuad.h */,
+				700D627B19845AE7000B6749 /* ofxEasingQuart.cpp */,
+				700D627C19845AE7000B6749 /* ofxEasingQuart.h */,
+				700D627D19845AE7000B6749 /* ofxEasingQuint.cpp */,
+				700D627E19845AE7000B6749 /* ofxEasingQuint.h */,
+				700D627F19845AE7000B6749 /* ofxEasingSine.cpp */,
+				700D628019845AE7000B6749 /* ofxEasingSine.h */,
+			);
+			path = Easings;
 			sourceTree = "<group>";
 		};
 		70B3E26919581DFD005E02BF /* iOS */ = {
@@ -225,6 +320,15 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				700D625919845AAF000B6749 /* DragGestureRecognizer.cpp */,
+				700D625A19845AAF000B6749 /* DragGestureRecognizer.h */,
+				700D625B19845AAF000B6749 /* GestureRecognizer.cpp */,
+				700D625C19845AAF000B6749 /* GestureRecognizer.h */,
+				700D625D19845AAF000B6749 /* IEventReceiver.h */,
+				700D625E19845AAF000B6749 /* IGestureConsumer.h */,
+				700D625F19845AAF000B6749 /* IGestureRecognizer.h */,
+				700D626019845AAF000B6749 /* SingleTapGestureRecognizer.cpp */,
+				700D626119845AAF000B6749 /* SingleTapGestureRecognizer.h */,
 				7047689319607D6C00D741AD /* CompositionLayer.cpp */,
 				7047689419607D6C00D741AD /* CompositionLayer.h */,
 				7047689519607D6C00D741AD /* SoundCloudClient.cpp */,
@@ -236,7 +340,6 @@
 				7081692B19581F7D00FD4E81 /* Event.h */,
 				7081692C19581F7D00FD4E81 /* EventPlayer.cpp */,
 				7081692D19581F7D00FD4E81 /* EventPlayer.h */,
-				7081692E19581F7D00FD4E81 /* PCH.h */,
 				7081692F19581F7D00FD4E81 /* PooledFactory.h */,
 				7081693019581F7D00FD4E81 /* VisualizationLayer.cpp */,
 				7081693119581F7D00FD4E81 /* VisualizationLayer.h */,
@@ -322,8 +425,9 @@
 			files = (
 				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
 				678E130A17951536005B6D19 /* Icon.png in Resources */,
+				700D628319845AE7000B6749 /* easing_terms_of_use.html in Resources */,
 				678E130C1795153C005B6D19 /* Default.png in Resources */,
-				70438B111960A51F006C7984 /* now.m4a in Resources */,
+				700D6258198459F0000B6749 /* now.mp3 in Resources */,
 				678E130E17951540005B6D19 /* Default@2x.png in Resources */,
 				678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */,
 			);
@@ -352,13 +456,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				700D628519845AE7000B6749 /* ofxEasingBack.cpp in Sources */,
+				700D626219845AAF000B6749 /* DragGestureRecognizer.cpp in Sources */,
+				700D628719845AE7000B6749 /* ofxEasingCirc.cpp in Sources */,
+				700D626319845AAF000B6749 /* GestureRecognizer.cpp in Sources */,
 				7081693519581F7D00FD4E81 /* VisualizationLayer.cpp in Sources */,
+				700D628F19845AE7000B6749 /* ofxEasingSine.cpp in Sources */,
+				700D628D19845AE7000B6749 /* ofxEasingQuart.cpp in Sources */,
+				700D628C19845AE7000B6749 /* ofxEasingQuad.cpp in Sources */,
 				7081693419581F7D00FD4E81 /* EventPlayer.cpp in Sources */,
+				700D628A19845AE7000B6749 /* ofxEasingExpo.cpp in Sources */,
 				7081693319581F7D00FD4E81 /* CircleVisualization.cpp in Sources */,
+				700D628919845AE7000B6749 /* ofxEasingElastic.cpp in Sources */,
 				7081693219581F7D00FD4E81 /* CBApp.cpp in Sources */,
+				700D629019845AE7000B6749 /* ofxTween.cpp in Sources */,
+				700D628E19845AE7000B6749 /* ofxEasingQuint.cpp in Sources */,
+				700D626419845AAF000B6749 /* SingleTapGestureRecognizer.cpp in Sources */,
+				700D628B19845AE7000B6749 /* ofxEasingLinear.cpp in Sources */,
+				700D628619845AE7000B6749 /* ofxEasingBounce.cpp in Sources */,
 				7047689819607D6C00D741AD /* SoundCloudClient.cpp in Sources */,
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				7047689719607D6C00D741AD /* CompositionLayer.cpp in Sources */,
+				700D628819845AE7000B6749 /* ofxEasingCubic.cpp in Sources */,
+				700D628419845AE7000B6749 /* ofxEasing.cpp in Sources */,
 				E4D8936F11527B74007E1F53 /* ofiOSApp.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

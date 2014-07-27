@@ -3,7 +3,7 @@
 #include <assert.h>
 
 #define MAX_MONITORED_TOUCHES 100
-#define ALLOWED_CONTACT_TIME 0.1f
+#define ALLOWED_CONTACT_TIME 0.5f
 
 //-----------------------------------------------------------------------------------
 void SingleTapGestureRecognizer::Initialize(
